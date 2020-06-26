@@ -1,3 +1,7 @@
+# CINEMATIK
+
+Aplicación para registrar las películas vistas, con valoración, crítica, etc.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
