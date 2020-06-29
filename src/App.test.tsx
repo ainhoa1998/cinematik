@@ -1,9 +1,9 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "./App";
 
 test("Muestra el título", () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/cinematik/i);
+  render(<App />);
+  const linkElement = screen.getByText(/cinematik/i);
   expect(linkElement).toBeInTheDocument();
 });
