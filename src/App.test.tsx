@@ -1,9 +1,21 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
-test("Muestra el título", () => {
+it("Muestra el título", () => {
   render(<App />);
 
   expect(screen.getByText(/cinematik/i)).toBeInTheDocument();
+});
+
+it("Añade una película", () => {
+  render(<App />);
+
+  const titulo = screen.getByLabelText(/titulo/i);
+  userEvent.type(titulo, "Star Wars");
+  const guardar = screen.getByText(/guardar/i);
+  userEvent.click(guardar);
+
+  expect(screen.getByText("Star Wars")).toBeInTheDocument();
 });
