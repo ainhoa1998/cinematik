@@ -1,26 +1,21 @@
-import React, { Component } from "react";
+import React, { FC, useState } from "react";
 import "./App.css";
 
-class App extends Component {
-  state = {
-    listaPeliculas: "",
+const App: FC = () => {
+  const [listaPeliculas, setListaPeliculas] = useState("");
+  const handleClick = () => {
+    setListaPeliculas("Star Wars");
   };
-  handleClick = () => {
-    this.setState({
-      listaPeliculas: "Star Wars",
-    });
-  };
-  render() {
-    return (
-      <div className="App">
-        <h1 className="title">Cinematik</h1>
-        <label htmlFor="titulo">Titulo:</label>
-        <input type="text" id="titulo" />
-        <button onClick={this.handleClick}>Guardar</button>
-        <div className="listadoPeliculas">{this.state.listaPeliculas}</div>
-      </div>
-    );
-  }
-}
+
+  return (
+    <div className="App">
+      <h1 className="title">Cinematik</h1>
+      <label htmlFor="titulo">Titulo:</label>
+      <input type="text" id="titulo" />
+      <button onClick={handleClick}>Guardar</button>
+      <div className="listadoPeliculas">{listaPeliculas}</div>
+    </div>
+  );
+};
 
 export default App;
