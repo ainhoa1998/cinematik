@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -11,15 +12,13 @@ class App extends Component {
   };
   render() {
     return (
-      <>
-        <h1>Cinematik</h1>
-        <form>
-          <label htmlFor="titulo">Titulo</label>
-          <input type="text" id="titulo" />
-        </form>
+      <div className="App">
+        <h1 className="title">Cinematik</h1>
+        <label htmlFor="titulo">Titulo:</label>
+        <input type="text" id="titulo" />
         <button onClick={this.handleClick}>Guardar</button>
-        <div>{this.state.listaPeliculas}</div>
-      </>
+        <div className="listadoPeliculas">{this.state.listaPeliculas}</div>
+      </div>
     );
   }
 }
