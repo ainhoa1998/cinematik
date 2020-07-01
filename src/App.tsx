@@ -15,7 +15,7 @@ const App: FC = () => {
   };
 
   return (
-    <StyledApp>
+    <Wrapper>
       <Title>Cinematik</Title>
       <label htmlFor="titulo">Titulo:</label>
       <TypeTitle onChange={handleChange} type="text" id="titulo" />
@@ -25,13 +25,13 @@ const App: FC = () => {
           return <div key={index}>{movie}</div>;
         })}
       </MovieList>
-    </StyledApp>
+    </Wrapper>
   );
 };
 
 export default App;
 
-const StyledApp = styled.div`
+const Wrapper = styled.div`
   padding: 30px;
   background-color: antiquewhite;
   text-align: center;
