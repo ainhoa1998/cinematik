@@ -8,24 +8,19 @@ const App: FC = () => {
   const handleChange = (event: any) => {
     event.preventDefault();
     setMovie(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleSubmit = () => {
     setMovieList(movie);
-    alert(movieList);
+    console.log(movieList);
   };
 
   return (
     <StyledApp>
       <Title>Cinematik</Title>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="titulo">Titulo:</label>
-          <TypeTitle onChange={handleChange} type="text" id="titulo" />
-          <button>Guardar</button>
-        </div>
-      </form>
+      <label htmlFor="titulo">Titulo:</label>
+      <TypeTitle onChange={handleChange} type="text" id="titulo" />
+      <button onClick={handleSubmit}>Guardar</button>
       <MovieList>{movieList}</MovieList>
     </StyledApp>
   );
