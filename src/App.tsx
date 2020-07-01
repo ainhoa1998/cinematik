@@ -4,6 +4,7 @@ import styled from "styled-components";
 const App: FC = () => {
   const [movie, setMovie] = useState("");
   const [movieCollection, setMovieCollection] = useState<string[]>([]);
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -11,12 +12,8 @@ const App: FC = () => {
   };
 
   const handleClick = () => {
-    movie !== ""
-      ? setMovieCollection([...movieCollection, movie])
-      : setMovieCollection([
-          ...movieCollection,
-          "Debes indicar un título para guardar una película",
-        ]);
+    setIsError(movie === "");
+    setMovieCollection([...movieCollection, movie]);
   };
 
   return (
@@ -25,11 +22,15 @@ const App: FC = () => {
       <label htmlFor="titulo">Titulo:</label>
       <TypeTitle onChange={handleChange} type="text" id="titulo" />
       <button onClick={handleClick}>Guardar</button>
-      <MovieCollection>
-        {movieCollection.map((movie, index) => {
-          return <div key={index}>{movie}</div>;
-        })}
-      </MovieCollection>
+      {isError ? (
+        <div>Debes indicar un título para guardar una película</div>
+      ) : (
+        <MovieCollection>
+          {movieCollection.map((movie, index) => {
+            return <div key={index}>{movie}</div>;
+          })}
+        </MovieCollection>
+      )}
     </Wrapper>
   );
 };
