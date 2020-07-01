@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const App: FC = () => {
   const [movie, setMovie] = useState("");
-  const [movieList, setMovieList] = useState<string[]>([]);
+  const [movieCollection, setMovieCollection] = useState<string[]>([]);
 
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -11,7 +11,7 @@ const App: FC = () => {
   };
 
   const handleClick = () => {
-    setMovieList([...movieList, movie]);
+    setMovieCollection([...movieCollection, movie]);
   };
 
   return (
@@ -20,11 +20,11 @@ const App: FC = () => {
       <label htmlFor="titulo">Titulo:</label>
       <TypeTitle onChange={handleChange} type="text" id="titulo" />
       <button onClick={handleClick}>Guardar</button>
-      <MovieList>
-        {movieList.map((movie, index) => {
+      <MovieCollection>
+        {movieCollection.map((movie, index) => {
           return <div key={index}>{movie}</div>;
         })}
-      </MovieList>
+      </MovieCollection>
     </Wrapper>
   );
 };
@@ -38,7 +38,7 @@ const Wrapper = styled.div`
   box-shadow: 11px 10px 5px 0px rgba(0, 0, 0, 0.47);
 `;
 
-const MovieList = styled.div`
+const MovieCollection = styled.div`
   padding: 10px;
 `;
 
