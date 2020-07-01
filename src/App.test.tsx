@@ -19,3 +19,18 @@ it("Añade una película", () => {
 
   expect(screen.getByText("Star Wars")).toBeInTheDocument();
 });
+
+it("Añade dos películas", () => {
+  render(<App />);
+
+  const titulo = screen.getByLabelText(/titulo/i);
+  userEvent.type(titulo, "Star Wars");
+  const guardar = screen.getByText(/guardar/i);
+  userEvent.click(guardar);
+
+  userEvent.type(titulo, "El Padrino");
+  userEvent.click(guardar);
+
+  expect(screen.getByText("Star Wars")).toBeInTheDocument();
+  expect(screen.getByText("El Padrino")).toBeInTheDocument();
+});

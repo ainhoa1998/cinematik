@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const App: FC = () => {
   const [movie, setMovie] = useState("");
-  const [movieList, setMovieList] = useState("");
+  const [movieList, setMovieList] = useState<string[]>([]);
 
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -11,8 +11,7 @@ const App: FC = () => {
   };
 
   const handleSubmit = () => {
-    setMovieList(movie);
-    console.log(movieList);
+    setMovieList([...movieList, movie]);
   };
 
   return (
@@ -21,7 +20,11 @@ const App: FC = () => {
       <label htmlFor="titulo">Titulo:</label>
       <TypeTitle onChange={handleChange} type="text" id="titulo" />
       <button onClick={handleSubmit}>Guardar</button>
-      <MovieList>{movieList}</MovieList>
+      <MovieList>
+        {movieList.map((movie) => {
+          return <div key={movie}>{movie}</div>;
+        })}
+      </MovieList>
     </StyledApp>
   );
 };
