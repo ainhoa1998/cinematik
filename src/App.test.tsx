@@ -34,3 +34,16 @@ it("Añade dos películas", () => {
   expect(screen.getByText("Star Wars")).toBeInTheDocument();
   expect(screen.getByText("El Padrino")).toBeInTheDocument();
 });
+
+it("Devuelve mensaje de error", () => {
+  render(<App />);
+
+  const titulo = screen.getByLabelText(/titulo/i);
+  userEvent.type(titulo, "");
+  const guardar = screen.getByText(/guardar/i);
+  userEvent.click(guardar);
+
+  expect(
+    screen.getByText("Debes indicar un título para guardar una película")
+  ).toBeInTheDocument();
+});

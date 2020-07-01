@@ -11,7 +11,12 @@ const App: FC = () => {
   };
 
   const handleClick = () => {
-    setMovieCollection([...movieCollection, movie]);
+    movie !== ""
+      ? setMovieCollection([...movieCollection, movie])
+      : setMovieCollection([
+          ...movieCollection,
+          "Debes indicar un título para guardar una película",
+        ]);
   };
 
   return (
