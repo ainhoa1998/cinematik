@@ -2,21 +2,24 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 
 const App: FC = () => {
+  const [movie, setMovie] = useState("");
   const [movieList, setMovieList] = useState("");
-  const handleClick = (event: any) => {
-    alert(movieList);
-  };
 
   const handleChange = (event: any) => {
     event.preventDefault();
-    setMovieList(event.target.value);
+    setMovie(event.target.value);
     console.log(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    setMovieList(movie);
+    alert(movieList);
   };
 
   return (
     <StyledApp>
       <Title>Cinematik</Title>
-      <form onSubmit={handleClick}>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="titulo">Titulo:</label>
           <TypeTitle onChange={handleChange} type="text" id="titulo" />
