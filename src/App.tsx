@@ -10,7 +10,7 @@ const App: FC = () => {
     setMovie(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleClick = () => {
     setMovieList([...movieList, movie]);
   };
 
@@ -19,7 +19,7 @@ const App: FC = () => {
       <Title>Cinematik</Title>
       <label htmlFor="titulo">Titulo:</label>
       <TypeTitle onChange={handleChange} type="text" id="titulo" />
-      <button onClick={handleSubmit}>Guardar</button>
+      <button onClick={handleClick}>Guardar</button>
       <MovieList>
         {movieList.map((movie) => {
           return <div key={movie}>{movie}</div>;
