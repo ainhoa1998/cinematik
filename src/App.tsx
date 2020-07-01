@@ -21,8 +21,8 @@ const App: FC = () => {
       <TypeTitle onChange={handleChange} type="text" id="titulo" />
       <button onClick={handleClick}>Guardar</button>
       <MovieList>
-        {movieList.map((movie) => {
-          return <div key={movie}>{movie}</div>;
+        {movieList.map((movie, index) => {
+          return <div key={index}>{movie}</div>;
         })}
       </MovieList>
     </StyledApp>
@@ -35,8 +35,6 @@ const StyledApp = styled.div`
   padding: 30px;
   background-color: antiquewhite;
   text-align: center;
-  -webkit-box-shadow: 11px 10px 5px 0px rgba(0, 0, 0, 0.47);
-  -moz-box-shadow: 11px 10px 5px 0px rgba(0, 0, 0, 0.47);
   box-shadow: 11px 10px 5px 0px rgba(0, 0, 0, 0.47);
 `;
 
