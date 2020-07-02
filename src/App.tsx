@@ -22,20 +22,24 @@ const App: FC = () => {
     <Wrapper>
       <Title>Cinematik</Title>
       <Text>Registra la última película que has visto</Text>
-      <div>
-        <label htmlFor="titulo">Titulo:</label>
-        <TypeTitle onChange={handleChange} type="text" id="titulo" />
-      </div>
-      <ButtonGuardar onClick={handleClick}>Guardar</ButtonGuardar>
-      {isError && (
-        <Error>Debes indicar un título para guardar una película</Error>
-      )}
-
-      <MovieCollection>
-        {movieCollection.map((movie, index) => {
-          return <Movie key={index}>{movie}</Movie>;
-        })}
-      </MovieCollection>
+      <InnerWrapper>
+        <div>
+          <label htmlFor="titulo">Titulo:</label>
+          <TypeTitle onChange={handleChange} type="text" id="titulo" />
+        </div>
+        {isError && (
+          <Error>Debes indicar un título para guardar una película</Error>
+        )}
+        <ButtonGuardar onClick={handleClick}>Guardar</ButtonGuardar>
+      </InnerWrapper>
+      <Text>Mis películas</Text>
+      <InnerWrapper>
+        <div>
+          {movieCollection.map((movie, index) => {
+            return <Movie key={index}>{movie}</Movie>;
+          })}
+        </div>
+      </InnerWrapper>
     </Wrapper>
   );
 };
@@ -47,16 +51,17 @@ const Wrapper = styled.div`
   font-family: "Lucida Console", Courier, monospace;
 `;
 
-const Text = styled.div`
-  padding: 0 0 20px;
+const InnerWrapper = styled.div`
+  margin: 0 50px;
 `;
 
-const MovieCollection = styled.div`
-  padding: 10px;
+const Text = styled.div`
+  padding: 0 0 20px;
+  font-size: 20px;
 `;
 
 const ButtonGuardar = styled.button`
-  margin-top: 10px;
+  margin: 10px 0 50px;
   background-color: white;
   padding: 5px;
 `;
@@ -70,10 +75,11 @@ const Title = styled.h1`
 `;
 
 const Error = styled.div`
+  padding-top: 10px;
   color: red;
 `;
 
 const Movie = styled.div`
   border: 1px solid black;
-  padding: 5px;
+  padding: 5px 10px;
 `;
