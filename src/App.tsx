@@ -13,7 +13,6 @@ const App: FC = () => {
 
   const handleClick = () => {
     setIsError(movie === "");
-    alert(movieCollection.length);
     if (!isError) {
       setMovieCollection([...movieCollection, movie]);
     }
