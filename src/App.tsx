@@ -24,15 +24,13 @@ const App: FC = () => {
       <label htmlFor="titulo">Titulo:</label>
       <TypeTitle onChange={handleChange} type="text" id="titulo" />
       <button onClick={handleClick}>Guardar</button>
-      {isError ? (
-        <div>Debes indicar un título para guardar una película</div>
-      ) : (
-        <MovieCollection>
-          {movieCollection.map((movie, index) => {
-            return <div key={index}>{movie}</div>;
-          })}
-        </MovieCollection>
-      )}
+      {isError && <div>Debes indicar un título para guardar una película</div>}
+
+      <MovieCollection>
+        {movieCollection.map((movie, index) => {
+          return <div key={index}>{movie}</div>;
+        })}
+      </MovieCollection>
     </Wrapper>
   );
 };
