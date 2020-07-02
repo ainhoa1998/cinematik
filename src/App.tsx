@@ -13,6 +13,7 @@ const App: FC = () => {
 
   const handleClick = () => {
     setIsError(movie === "");
+    alert(movieCollection.length);
     if (!isError) {
       setMovieCollection([...movieCollection, movie]);
     }
@@ -21,14 +22,19 @@ const App: FC = () => {
   return (
     <Wrapper>
       <Title>Cinematik</Title>
-      <label htmlFor="titulo">Titulo:</label>
-      <TypeTitle onChange={handleChange} type="text" id="titulo" />
-      <button onClick={handleClick}>Guardar</button>
-      {isError && <div>Debes indicar un título para guardar una película</div>}
+      <Text>Registra la última película que has visto</Text>
+      <div>
+        <label htmlFor="titulo">Titulo:</label>
+        <TypeTitle onChange={handleChange} type="text" id="titulo" />
+      </div>
+      <ButtonGuardar onClick={handleClick}>Guardar</ButtonGuardar>
+      {isError && (
+        <Error>Debes indicar un título para guardar una película</Error>
+      )}
 
       <MovieCollection>
         {movieCollection.map((movie, index) => {
-          return <div key={index}>{movie}</div>;
+          return <Movie key={index}>{movie}</Movie>;
         })}
       </MovieCollection>
     </Wrapper>
@@ -38,14 +44,22 @@ const App: FC = () => {
 export default App;
 
 const Wrapper = styled.div`
-  padding: 30px;
-  background-color: antiquewhite;
-  text-align: center;
-  box-shadow: 11px 10px 5px 0px rgba(0, 0, 0, 0.47);
+  margin: 50px 500px;
+  font-family: "Lucida Console", Courier, monospace;
+`;
+
+const Text = styled.div`
+  padding: 0 0 20px;
 `;
 
 const MovieCollection = styled.div`
   padding: 10px;
+`;
+
+const ButtonGuardar = styled.button`
+  margin-top: 10px;
+  background-color: white;
+  padding: 5px;
 `;
 
 const TypeTitle = styled.input`
@@ -54,4 +68,13 @@ const TypeTitle = styled.input`
 
 const Title = styled.h1`
   text-transform: uppercase;
+`;
+
+const Error = styled.div`
+  color: red;
+`;
+
+const Movie = styled.div`
+  border: 1px solid black;
+  padding: 5px;
 `;
