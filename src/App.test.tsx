@@ -53,6 +53,7 @@ it("Informa de que no tiene películas", () => {
 
   const movieList = screen.getByTestId("movieList");
 
-  expect(movieList).not.toBeEmpty() ||
+  if (movieList.onemptied) {
     expect(screen.getByText("No tiene películas añadidas")).toBeInTheDocument();
+  }
 });
