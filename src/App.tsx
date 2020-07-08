@@ -41,7 +41,7 @@ const App: FC = () => {
             return <Movie key={index}>{movie}</Movie>;
           })
         ) : (
-          <div>No tiene películas añadidas</div>
+          <InformationText>No tiene películas añadidas</InformationText>
         )}
       </InnerWrapper>
     </Wrapper>
@@ -62,6 +62,11 @@ const InnerWrapper = styled.div`
 const Text = styled.div`
   padding: 0 0 20px;
   font-size: 20px;
+`;
+
+const InformationText = styled.div`
+  font-size: 20px;
+  color: grey;
 `;
 
 const ButtonGuardar = styled.button`
