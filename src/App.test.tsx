@@ -56,4 +56,7 @@ it("Informa de que no tiene películas", () => {
   if (movieList.onemptied) {
     expect(screen.getByText("No tiene películas añadidas")).toBeInTheDocument();
   }
+
+  /*expect(movieList).not.toBeEmpty() ||
+    expect(screen.getByText("No tiene películas añadidas")).toBeInTheDocument();*/
 });
