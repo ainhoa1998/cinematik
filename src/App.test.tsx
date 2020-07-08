@@ -47,3 +47,12 @@ it("Devuelve mensaje de error", () => {
     screen.getByText("Debes indicar un título para guardar una película")
   ).toBeInTheDocument();
 });
+
+it("Informa de que no tiene películas", () => {
+  render(<App />);
+
+  const movieList = screen.getByTestId("movieList");
+
+  expect(movieList).not.toBeEmpty() ||
+    expect(screen.getByText("No tiene películas añadidas")).toBeInTheDocument();
+});

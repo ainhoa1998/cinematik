@@ -12,9 +12,11 @@ const App: FC = () => {
   };
 
   const handleClick = () => {
-    setIsError(movie === "");
-    if (!isError) {
+    if (movie !== "") {
+      setIsError(false);
       setMovieCollection([...movieCollection, movie]);
+    } else {
+      setIsError(true);
     }
   };
 
@@ -33,12 +35,14 @@ const App: FC = () => {
         <ButtonGuardar onClick={handleClick}>Guardar</ButtonGuardar>
       </InnerWrapper>
       <Text>Mis películas</Text>
-      <InnerWrapper>
-        <div>
-          {movieCollection.map((movie, index) => {
+      <InnerWrapper data-testid="movieList">
+        {movieCollection.length !== 0 ? (
+          movieCollection.map((movie, index) => {
             return <Movie key={index}>{movie}</Movie>;
-          })}
-        </div>
+          })
+        ) : (
+          <div>No tiene películas añadidas</div>
+        )}
       </InnerWrapper>
     </Wrapper>
   );
