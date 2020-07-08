@@ -51,8 +51,5 @@ it("Devuelve mensaje de error", () => {
 it("Informa de que no tiene películas", () => {
   render(<App />);
 
-  const movieList = screen.getByTestId("movieList");
-
-  expect(!movieList.onemptied) ||
-    expect(screen.getByText("No tiene películas añadidas")).toBeInTheDocument();
+  expect(screen.getByText("No tiene películas añadidas")).toBeInTheDocument();
 });

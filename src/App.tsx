@@ -35,7 +35,7 @@ const App: FC = () => {
         <ButtonGuardar onClick={handleClick}>Guardar</ButtonGuardar>
       </InnerWrapper>
       <Text>Mis películas</Text>
-      <InnerWrapper data-testid="movieList">
+      <InnerWrapper>
         {movieCollection.length !== 0 ? (
           movieCollection.map((movie, index) => {
             return <Movie key={index}>{movie}</Movie>;
