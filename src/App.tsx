@@ -79,6 +79,11 @@ const Text = styled.div`
   font-size: 20px;
 `;
 
+const Error = styled.div`
+  padding-top: 10px;
+  color: red;
+`;
+
 const InformationText = styled.div`
   font-size: 20px;
   color: grey;
@@ -102,11 +107,6 @@ const TypeTitle = styled.input`
 
 const Title = styled.h1`
   text-transform: uppercase;
-`;
-
-const Error = styled.div`
-  padding-top: 10px;
-  color: red;
 `;
 
 const Movie = styled.div`
