@@ -12,10 +12,10 @@ it("Muestra el título", () => {
 it("Añade una película", () => {
   render(<App />);
 
-  const titulo = screen.getByLabelText(/titulo/i);
-  userEvent.type(titulo, "Star Wars");
-  const guardar = screen.getByText(/guardar/i);
-  userEvent.click(guardar);
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
 
   expect(screen.getByText("Star Wars")).toBeInTheDocument();
 });
@@ -23,13 +23,13 @@ it("Añade una película", () => {
 it("Añade dos películas", () => {
   render(<App />);
 
-  const titulo = screen.getByLabelText(/titulo/i);
-  userEvent.type(titulo, "Star Wars");
-  const guardar = screen.getByText(/guardar/i);
-  userEvent.click(guardar);
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
 
-  userEvent.type(titulo, "El Padrino");
-  userEvent.click(guardar);
+  userEvent.type(title, "El Padrino");
+  userEvent.click(saveButton);
 
   expect(screen.getByText("Star Wars")).toBeInTheDocument();
   expect(screen.getByText("El Padrino")).toBeInTheDocument();
@@ -38,10 +38,10 @@ it("Añade dos películas", () => {
 it("Devuelve mensaje de error", () => {
   render(<App />);
 
-  const titulo = screen.getByLabelText(/titulo/i);
-  userEvent.type(titulo, "");
-  const guardar = screen.getByText(/guardar/i);
-  userEvent.click(guardar);
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
 
   expect(
     screen.getByText("Debes indicar un título para guardar una película")
@@ -57,13 +57,13 @@ it("Informa de que no tiene películas", () => {
 it("Elimina una película añadida", () => {
   render(<App />);
 
-  const titulo = screen.getByLabelText(/titulo/i);
-  userEvent.type(titulo, "Star Wars");
-  const guardar = screen.getByText(/guardar/i);
-  userEvent.click(guardar);
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
 
-  const eliminar = screen.getByText(/eliminar/i);
-  userEvent.click(eliminar);
+  const deleteButton = screen.getByText(/eliminar/i);
+  userEvent.click(deleteButton);
 
   expect(screen.queryByText("Star Wars")).not.toBeInTheDocument();
 });
