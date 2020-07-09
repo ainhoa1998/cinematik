@@ -26,6 +26,7 @@ const App: FC = () => {
         .slice(0, index)
         .concat(movieCollection.slice(index + 1, movieCollection.length))
     );
+    console.log(index);
   };
 
   return (
@@ -66,7 +67,7 @@ const App: FC = () => {
 export default App;
 
 const Wrapper = styled.div`
-  margin: 50px 500px;
+  margin: 50px 30%;
   font-family: "Lucida Console", Courier, monospace;
 `;
 
