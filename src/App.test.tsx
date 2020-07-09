@@ -53,3 +53,17 @@ it("Informa de que no tiene películas", () => {
 
   expect(screen.getByText("No tiene películas añadidas")).toBeInTheDocument();
 });
+
+it("Elimina una película añadida", () => {
+  render(<App />);
+
+  const titulo = screen.getByLabelText(/titulo/i);
+  userEvent.type(titulo, "Star Wars");
+  const guardar = screen.getByText(/guardar/i);
+  userEvent.click(guardar);
+
+  const eliminar = screen.getByText(/eliminar/i);
+  userEvent.click(eliminar);
+
+  expect(screen.queryByText("Star Wars")).not.toBeInTheDocument();
+});

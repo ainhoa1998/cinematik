@@ -20,6 +20,14 @@ const App: FC = () => {
     }
   };
 
+  const handleDelete = (index = 5) => {
+    setMovieCollection(
+      movieCollection
+        .slice(0, index)
+        .concat(movieCollection.slice(index + 1, movieCollection.length))
+    );
+  };
+
   return (
     <Wrapper>
       <Title>Cinematik</Title>
@@ -38,7 +46,12 @@ const App: FC = () => {
       <InnerWrapper>
         {movieCollection.length !== 0 ? (
           movieCollection.map((movie, index) => {
-            return <Movie key={index}>{movie}</Movie>;
+            return (
+              <Movie key={index}>
+                {movie}
+                <button onClick={() => handleDelete(index)}>Eliminar</button>
+              </Movie>
+            );
           })
         ) : (
           <InformationText>No tiene películas añadidas</InformationText>
