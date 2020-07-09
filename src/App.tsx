@@ -6,7 +6,7 @@ const App: FC = () => {
   const [movieCollection, setMovieCollection] = useState<string[]>([]);
   const [isError, setIsError] = useState(false);
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setMovie(event.target.value);
   };
@@ -20,11 +20,9 @@ const App: FC = () => {
     }
   };
 
-  const handleDelete = (index = 5) => {
+  const handleDelete = (selectedMovie: string) => {
     setMovieCollection(
-      movieCollection
-        .slice(0, index)
-        .concat(movieCollection.slice(index + 1, movieCollection.length))
+      movieCollection.filter((movie) => movie !== selectedMovie)
     );
   };
 
@@ -49,7 +47,7 @@ const App: FC = () => {
             return (
               <Movie key={index}>
                 {movie}
-                <ButtonEliminar onClick={() => handleDelete(index)}>
+                <ButtonEliminar onClick={() => handleDelete(movie)}>
                   Eliminar
                 </ButtonEliminar>
               </Movie>
