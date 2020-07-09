@@ -26,7 +26,6 @@ const App: FC = () => {
         .slice(0, index)
         .concat(movieCollection.slice(index + 1, movieCollection.length))
     );
-    console.log(index);
   };
 
   return (
