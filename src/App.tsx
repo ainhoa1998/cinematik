@@ -49,7 +49,9 @@ const App: FC = () => {
             return (
               <Movie key={index}>
                 {movie}
-                <button onClick={() => handleDelete(index)}>Eliminar</button>
+                <ButtonEliminar onClick={() => handleDelete(index)}>
+                  Eliminar
+                </ButtonEliminar>
               </Movie>
             );
           })
@@ -88,6 +90,12 @@ const ButtonGuardar = styled.button`
   padding: 5px;
 `;
 
+const ButtonEliminar = styled.button`
+  background-color: red;
+  color: white;
+  padding: 5px;
+`;
+
 const TypeTitle = styled.input`
   margin-left: 15px;
 `;
@@ -104,4 +112,6 @@ const Error = styled.div`
 const Movie = styled.div`
   border: 1px solid black;
   padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
 `;
