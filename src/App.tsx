@@ -7,6 +7,14 @@ const App: FC = () => {
   const [isError, setIsError] = useState(false);
   const [editingComponent, setEditingComponent] = useState(-1);
 
+  //En el segundo input en vez de handleClick
+  const handleUpdate = (index: number, movieChanged: string) => {
+    const updatedMovieCollection = movieCollection;
+
+    updatedMovieCollection[index] = movieChanged;
+    setMovieCollection(updatedMovieCollection);
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setMovie(event.target.value);
@@ -58,9 +66,11 @@ const App: FC = () => {
                 {editingComponent === index ? (
                   <div>
                     <TypeTitle
-                      onChange={handleChange}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        handleUpdate(index, event.target.value)
+                      }
                       type="text"
-                      id="titulo"
+                      id="editarTitulo"
                       placeholder={movie}
                     />{" "}
                   </div>
@@ -70,7 +80,7 @@ const App: FC = () => {
                 <div>
                   <ButtonEdit onClick={() => handleEdit(index)}>
                     {editingComponent === index ? (
-                      <span onClick={handleClick}>Guardar título</span>
+                      <span>Guardar título</span>
                     ) : (
                       <span>Editar</span>
                     )}
