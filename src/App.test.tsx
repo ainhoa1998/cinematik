@@ -79,7 +79,7 @@ it("Edita una película añadida", () => {
   const editButton = screen.getByText(/editar/i);
   userEvent.click(editButton);
 
-  const changeTitle = screen.getByLabelText(/editar título/i);
+  const changeTitle = screen.getByPlaceholderText("Star Wars");
   userEvent.type(changeTitle, "Star Wars 2");
   const saveChanges = screen.getByText(/guardar título/i);
   userEvent.click(saveChanges);

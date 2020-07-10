@@ -57,11 +57,11 @@ const App: FC = () => {
               <Movie key={index}>
                 {editingComponent === index ? (
                   <div>
-                    <label htmlFor="titulo">Editar título:</label>
                     <TypeTitle
                       onChange={handleChange}
                       type="text"
                       id="titulo"
+                      placeholder={movie}
                     />{" "}
                   </div>
                 ) : (
