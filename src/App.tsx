@@ -63,17 +63,18 @@ const App: FC = () => {
                 ) : (
                   <span>{movie}</span>
                 )}
-
-                <button onClick={handleEdit}>
-                  {isEditing ? (
-                    <span onClick={handleClick}>Guardar título</span>
-                  ) : (
-                    <span>Editar</span>
-                  )}
-                </button>
-                <ButtonEliminar onClick={() => handleDelete(movie)}>
-                  Eliminar
-                </ButtonEliminar>
+                <div>
+                  <ButtonEdit onClick={handleEdit}>
+                    {isEditing ? (
+                      <span onClick={handleClick}>Guardar título</span>
+                    ) : (
+                      <span>Editar</span>
+                    )}
+                  </ButtonEdit>
+                  <ButtonEliminar onClick={() => handleDelete(movie)}>
+                    Eliminar
+                  </ButtonEliminar>
+                </div>
               </Movie>
             );
           })
@@ -118,7 +119,14 @@ const ButtonGuardar = styled.button`
 `;
 
 const ButtonEliminar = styled.button`
+  margin-left: 20px;
   background-color: red;
+  color: white;
+  padding: 5px;
+`;
+
+const ButtonEdit = styled.button`
+  background-color: orange;
   color: white;
   padding: 5px;
 `;
