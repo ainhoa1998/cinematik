@@ -5,7 +5,7 @@ const App: FC = () => {
   const [movie, setMovie] = useState("");
   const [movieCollection, setMovieCollection] = useState<string[]>([]);
   const [isError, setIsError] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const [editingComponent, setEditingComponent] = useState(-1);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -27,8 +27,8 @@ const App: FC = () => {
     );
   };
 
-  const handleEdit = () => {
-    setIsEditing(!isEditing);
+  const handleEdit = (index: number) => {
+    setEditingComponent(index);
   };
 
   return (
@@ -51,7 +51,7 @@ const App: FC = () => {
           movieCollection.map((movie, index) => {
             return (
               <Movie key={index}>
-                {isEditing ? (
+                {editingComponent === index ? (
                   <div>
                     <label htmlFor="titulo">Editar título:</label>
                     <TypeTitle
@@ -64,8 +64,8 @@ const App: FC = () => {
                   <span>{movie}</span>
                 )}
                 <div>
-                  <ButtonEdit onClick={handleEdit}>
-                    {isEditing ? (
+                  <ButtonEdit onClick={() => handleEdit(index)}>
+                    {editingComponent === index ? (
                       <span onClick={handleClick}>Guardar título</span>
                     ) : (
                       <span>Editar</span>
