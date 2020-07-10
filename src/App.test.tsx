@@ -85,4 +85,5 @@ it("Edita una película añadida", () => {
   userEvent.click(saveChanges);
 
   expect(screen.queryByText("Star Wars 2")).toBeInTheDocument();
+  expect(screen.queryByText("Star Wars")).not.toBeInTheDocument();
 });
