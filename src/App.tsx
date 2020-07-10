@@ -28,7 +28,11 @@ const App: FC = () => {
   };
 
   const handleEdit = (index: number) => {
-    setEditingComponent(index);
+    if (editingComponent < 0) {
+      setEditingComponent(index);
+    } else {
+      setEditingComponent(-1);
+    }
   };
 
   return (
