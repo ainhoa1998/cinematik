@@ -27,9 +27,8 @@ const App: FC = () => {
     );
   };
 
-  const handleEdit = (props: any) => {
+  const handleEdit = () => {
     setIsEditing(!isEditing);
-    console.log(props.children);
   };
 
   return (
