@@ -67,3 +67,22 @@ it("Elimina una película añadida", () => {
 
   expect(screen.queryByText("Star Wars")).not.toBeInTheDocument();
 });
+
+it("Edita una película añadida", () => {
+  render(<App />);
+
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
+
+  const editButton = screen.getByText(/editar/i);
+  userEvent.click(editButton);
+
+  const changeTitle = screen.getByLabelText(/editar título/i);
+  userEvent.type(changeTitle, "Star Wars 2");
+  const saveChanges = screen.getByText(/guardar título/i);
+  userEvent.click(saveChanges);
+
+  expect(screen.queryByText("Star Wars 2")).toBeInTheDocument();
+});

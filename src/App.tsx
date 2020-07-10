@@ -5,6 +5,7 @@ const App: FC = () => {
   const [movie, setMovie] = useState("");
   const [movieCollection, setMovieCollection] = useState<string[]>([]);
   const [isError, setIsError] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -24,6 +25,11 @@ const App: FC = () => {
     setMovieCollection(
       movieCollection.filter((movie) => movie !== selectedMovie)
     );
+  };
+
+  const handleEdit = (props: any) => {
+    setIsEditing(!isEditing);
+    console.log(props.children);
   };
 
   return (
@@ -46,7 +52,26 @@ const App: FC = () => {
           movieCollection.map((movie, index) => {
             return (
               <Movie key={index}>
-                {movie}
+                {isEditing ? (
+                  <div>
+                    <label htmlFor="titulo">Editar título:</label>
+                    <TypeTitle
+                      onChange={handleChange}
+                      type="text"
+                      id="titulo"
+                    />{" "}
+                  </div>
+                ) : (
+                  <span>{movie}</span>
+                )}
+
+                <button onClick={handleEdit}>
+                  {isEditing ? (
+                    <span onClick={handleClick}>Guardar título</span>
+                  ) : (
+                    <span>Editar</span>
+                  )}
+                </button>
                 <ButtonEliminar onClick={() => handleDelete(movie)}>
                   Eliminar
                 </ButtonEliminar>
