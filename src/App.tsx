@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
+import { Button } from "./components/Button";
 
 const App: FC = () => {
   const [movie, setMovie] = useState("");
@@ -55,7 +56,9 @@ const App: FC = () => {
         {isError && (
           <Error>Debes indicar un título para guardar una película</Error>
         )}
-        <ButtonGuardar onClick={handleClick}>Guardar</ButtonGuardar>
+        <Button backgroundColor="white" onClick={handleClick}>
+          Guardar
+        </Button>
       </InnerWrapper>
       <Text>Mis películas</Text>
       <InnerWrapper>
@@ -78,16 +81,24 @@ const App: FC = () => {
                   <span>{movie}</span>
                 )}
                 <div>
-                  <ButtonEdit onClick={() => handleEdit(index)}>
+                  <Button
+                    backgroundColor="orange"
+                    color="white"
+                    onClick={() => handleEdit(index)}
+                  >
                     {editingComponent === index ? (
                       <span>Guardar título</span>
                     ) : (
                       <span>Editar</span>
                     )}
-                  </ButtonEdit>
-                  <ButtonEliminar onClick={() => handleDelete(movie)}>
+                  </Button>
+                  <Button
+                    backgroundColor="red"
+                    color="white"
+                    onClick={() => handleDelete(movie)}
+                  >
                     Eliminar
-                  </ButtonEliminar>
+                  </Button>
                 </div>
               </Movie>
             );
@@ -124,25 +135,6 @@ const Error = styled.div`
 const InformationText = styled.div`
   font-size: 20px;
   color: grey;
-`;
-
-const ButtonGuardar = styled.button`
-  margin: 10px 0 50px;
-  background-color: white;
-  padding: 5px;
-`;
-
-const ButtonEliminar = styled.button`
-  margin-left: 20px;
-  background-color: red;
-  color: white;
-  padding: 5px;
-`;
-
-const ButtonEdit = styled.button`
-  background-color: orange;
-  color: white;
-  padding: 5px;
 `;
 
 const TypeTitle = styled.input`
