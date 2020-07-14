@@ -32,6 +32,7 @@ const App: FC = () => {
     if (movie !== "") {
       setIsError(false);
       setMovieCollection([...movieCollection, movie]);
+      setCommentCollection([...commentCollection, comment]);
     } else {
       setIsError(true);
     }
@@ -64,6 +65,10 @@ const App: FC = () => {
         <div>
           <label htmlFor="titulo">Titulo:</label>
           <TypeTitle onChange={handleChange} type="text" id="titulo" />
+        </div>
+        <div>
+          <label htmlFor="review">Crítica: </label>
+          <input onChange={handleChangeComment} type="text" id="review" />
         </div>
         {isError && (
           <Error>Debes indicar un título para guardar una película</Error>

@@ -20,6 +20,19 @@ it("Añade una película", () => {
   expect(screen.getByText("Star Wars")).toBeInTheDocument();
 });
 
+it("Añade una película con crítica", () => {
+  render(<App />);
+
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const review = screen.getByLabelText(/crítica/i);
+  userEvent.type(review, "Es una película muy buena.");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
+
+  expect(screen.getByText("Es una película muy buena.")).toBeInTheDocument();
+});
+
 it("Añade dos películas", () => {
   render(<App />);
 
