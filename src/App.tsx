@@ -38,11 +38,7 @@ const App: FC = () => {
   };
 
   const handleClickComment = () => {
-    if (comment !== "") {
-      setCommentCollection([...commentCollection, comment]);
-    } else {
-      setIsError(true);
-    }
+    setCommentCollection([...commentCollection, comment]);
   };
 
   const handleDelete = (selectedMovie: string) => {
