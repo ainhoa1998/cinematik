@@ -4,7 +4,9 @@ import { Button } from "./components/Button";
 
 const App: FC = () => {
   const [movie, setMovie] = useState("");
+  const [comment, setComment] = useState("");
   const [movieCollection, setMovieCollection] = useState<string[]>([]);
+  const [commentCollection, setCommentCollection] = useState<string[]>([]);
   const [isError, setIsError] = useState(false);
   const [editingComponent, setEditingComponent] = useState(-1);
 
@@ -21,10 +23,23 @@ const App: FC = () => {
     setMovie(event.target.value);
   };
 
+  const handleChangeComment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setComment(event.target.value);
+  };
+
   const handleClick = () => {
     if (movie !== "") {
       setIsError(false);
       setMovieCollection([...movieCollection, movie]);
+    } else {
+      setIsError(true);
+    }
+  };
+
+  const handleClickComment = () => {
+    if (comment !== "") {
+      setCommentCollection([...commentCollection, comment]);
     } else {
       setIsError(true);
     }
@@ -65,42 +80,56 @@ const App: FC = () => {
         {movieCollection.length !== 0 ? (
           movieCollection.map((movie, index) => {
             return (
-              <Movie key={index}>
-                {editingComponent === index ? (
+              <>
+                <Movie key={index}>
+                  {editingComponent === index ? (
+                    <div>
+                      <TypeTitle
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => handleUpdate(index, event.target.value)}
+                        type="text"
+                        id="editarTitulo"
+                        placeholder={movie}
+                      />
+                      <br></br>
+                      <label htmlFor="comment">Escribe un comentario: </label>
+                      <TypeTitle
+                        onChange={handleChangeComment}
+                        type="text"
+                        id="comment"
+                      />
+                    </div>
+                  ) : (
+                    <span>{movie}</span>
+                  )}
                   <div>
-                    <TypeTitle
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        handleUpdate(index, event.target.value)
-                      }
-                      type="text"
-                      id="editarTitulo"
-                      placeholder={movie}
-                    />{" "}
+                    <Button
+                      backgroundColor="orange"
+                      color="white"
+                      onClick={() => handleEdit(index)}
+                    >
+                      {editingComponent === index ? (
+                        <span onClick={handleClickComment}>Guardar título</span>
+                      ) : (
+                        <span>Editar</span>
+                      )}
+                    </Button>
+                    <Button
+                      backgroundColor="red"
+                      color="white"
+                      onClick={() => handleDelete(movie)}
+                    >
+                      Eliminar
+                    </Button>
                   </div>
-                ) : (
-                  <span>{movie}</span>
-                )}
+                </Movie>
                 <div>
-                  <Button
-                    backgroundColor="orange"
-                    color="white"
-                    onClick={() => handleEdit(index)}
-                  >
-                    {editingComponent === index ? (
-                      <span>Guardar título</span>
-                    ) : (
-                      <span>Editar</span>
-                    )}
-                  </Button>
-                  <Button
-                    backgroundColor="red"
-                    color="white"
-                    onClick={() => handleDelete(movie)}
-                  >
-                    Eliminar
-                  </Button>
+                  {commentCollection.map((comment, index) => {
+                    return <div key={index}>{comment}</div>;
+                  })}
                 </div>
-              </Movie>
+              </>
             );
           })
         ) : (
