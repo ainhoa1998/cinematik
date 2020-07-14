@@ -10,7 +10,6 @@ const App: FC = () => {
   const [isError, setIsError] = useState(false);
   const [editingComponent, setEditingComponent] = useState(-1);
 
-  //En el segundo input en vez de handleClick
   const handleUpdate = (index: number, movieChanged: string) => {
     const updatedMovieCollection = movieCollection;
 
