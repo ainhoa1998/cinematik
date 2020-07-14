@@ -1,16 +1,19 @@
 import React, { FC } from "react";
+import styled from "styled-components";
 
 export const Button: FC<{
-  color?: string;
-  backgroundColor: string;
+  backgroundColor: "red" | "orange";
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}> = ({ onClick, children, color, backgroundColor }) => {
+}> = ({ onClick, children, backgroundColor }) => {
   return (
-    <button
-      style={{ color: color, backgroundColor: backgroundColor, padding: 5 }}
-      onClick={onClick}
-    >
+    <StyledButton backgroundColor={backgroundColor} onClick={onClick}>
       {children}
-    </button>
+    </StyledButton>
   );
 };
+
+const StyledButton = styled.button<{ backgroundColor: "red" | "orange" }>`
+  color: white;
+  background-color: ${(props) => props.backgroundColor};
+  padding: 5px;
+`;

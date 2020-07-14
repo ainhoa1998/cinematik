@@ -68,7 +68,7 @@ const App: FC = () => {
         {isError && (
           <Error>Debes indicar un título para guardar una película</Error>
         )}
-        <Button backgroundColor="white" onClick={handleClick}>
+        <Button backgroundColor="red" onClick={handleClick}>
           Guardar
         </Button>
       </InnerWrapper>
@@ -104,7 +104,6 @@ const App: FC = () => {
                   <div>
                     <Button
                       backgroundColor="orange"
-                      color="white"
                       onClick={() => handleEdit(index)}
                     >
                       {editingComponent === index ? (
@@ -115,7 +114,6 @@ const App: FC = () => {
                     </Button>
                     <Button
                       backgroundColor="red"
-                      color="white"
                       onClick={() => handleDelete(movie)}
                     >
                       Eliminar
