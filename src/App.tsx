@@ -84,6 +84,7 @@ const App: FC = () => {
                 <Movie key={index}>
                   {editingComponent === index ? (
                     <div>
+                      <label htmlFor="editarTitulo">Edita el título: </label>
                       <TypeTitle
                         onChange={(
                           event: React.ChangeEvent<HTMLInputElement>
