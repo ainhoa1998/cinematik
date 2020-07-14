@@ -45,6 +45,7 @@ const App: FC = () => {
     setMovieCollection(
       movieCollection.filter((movie) => movie !== selectedMovie)
     );
+    setCommentCollection([]);
   };
 
   const handleEdit = (index: number) => {
@@ -121,11 +122,13 @@ const App: FC = () => {
                     </Button>
                   </div>
                 </Movie>
-                <div>
-                  {commentCollection.map((comment, index) => {
-                    return <div key={index}>{comment}</div>;
-                  })}
-                </div>
+                <Comments>
+                  {commentCollection.length !== 0
+                    ? commentCollection.map((comment, index) => {
+                        return <div key={index}>{comment}</div>;
+                      })
+                    : null}
+                </Comments>
               </>
             );
           })
@@ -176,4 +179,9 @@ const Movie = styled.div`
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+`;
+
+const Comments = styled.div`
+  border: 1px solid black;
+  padding: 5px 10px;
 `;
