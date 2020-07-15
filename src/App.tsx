@@ -2,24 +2,28 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { Button } from "./components/Button";
 
+interface Movie {
+  title: string;
+  reviews: Array<string>;
+}
+
 const App: FC = () => {
-  const [movie, setMovie] = useState("");
+  const [movieTitle, setMovieTitle] = useState("");
   const [comment, setComment] = useState("");
-  const [movieCollection, setMovieCollection] = useState<string[]>([]);
-  const [commentCollection, setCommentCollection] = useState<string[]>([]);
+  const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
   const [isError, setIsError] = useState(false);
   const [editingComponent, setEditingComponent] = useState(-1);
 
   const handleUpdate = (index: number, movieChanged: string) => {
     const updatedMovieCollection = movieCollection;
 
-    updatedMovieCollection[index] = movieChanged;
+    updatedMovieCollection[index].title = movieChanged;
     setMovieCollection(updatedMovieCollection);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setMovie(event.target.value);
+    setMovieTitle(event.target.value);
   };
 
   const handleChangeComment = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,24 +32,31 @@ const App: FC = () => {
   };
 
   const handleClick = () => {
-    if (movie !== "") {
+    if (movieTitle !== "") {
+      const newMovie: Movie = {
+        title: movieTitle,
+        reviews: [comment],
+      };
       setIsError(false);
-      setMovieCollection([...movieCollection, movie]);
-      setCommentCollection([...commentCollection, comment]);
+      setMovieCollection([...movieCollection, newMovie]);
     } else {
       setIsError(true);
     }
   };
 
-  const handleClickComment = () => {
-    setCommentCollection([...commentCollection, comment]);
+  const handleClickComment = (movieTitle: string) => {
+    const updatedMovieCollection = movieCollection;
+    const movieUpdated = updatedMovieCollection.find(
+      (movie) => movie.title === movieTitle
+    );
+    movieUpdated?.reviews.push(comment);
+    setMovieCollection(updatedMovieCollection);
   };
 
   const handleDelete = (selectedMovie: string) => {
     setMovieCollection(
-      movieCollection.filter((movie) => movie !== selectedMovie)
+      movieCollection.filter((movie) => movie.title !== selectedMovie)
     );
-    setCommentCollection([]);
   };
 
   const handleEdit = (index: number) => {
@@ -92,7 +103,7 @@ const App: FC = () => {
                         ) => handleUpdate(index, event.target.value)}
                         type="text"
                         id="editarTitulo"
-                        placeholder={movie}
+                        placeholder={movie.title}
                       />
                       <br></br>
                       <label htmlFor="comment">Escribe un comentario: </label>
@@ -103,7 +114,7 @@ const App: FC = () => {
                       />
                     </div>
                   ) : (
-                    <span>{movie}</span>
+                    <span>{movie.title}</span>
                   )}
                   <div>
                     <Button
@@ -111,22 +122,24 @@ const App: FC = () => {
                       onClick={() => handleEdit(index)}
                     >
                       {editingComponent === index ? (
-                        <span onClick={handleClickComment}>Guardar título</span>
+                        <span onClick={() => handleClickComment(movie.title)}>
+                          Guardar título
+                        </span>
                       ) : (
                         <span>Editar</span>
                       )}
                     </Button>
                     <Button
                       backgroundColor="red"
-                      onClick={() => handleDelete(movie)}
+                      onClick={() => handleDelete(movie.title)}
                     >
                       Eliminar
                     </Button>
                   </div>
                 </Movie>
                 <Comments>
-                  {commentCollection.length !== 0
-                    ? commentCollection.map((comment, index) => {
+                  {movie.reviews.length !== 0
+                    ? movie.reviews.map((comment, index) => {
                         return <div key={index}>{comment}</div>;
                       })
                     : null}
