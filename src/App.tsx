@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
-import { Button } from "./components/Button";
+import { Button } from "./views/components/Button";
 
 interface Movie {
   title: string;
