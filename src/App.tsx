@@ -5,6 +5,7 @@ import { Button } from "./components/Button";
 interface Movie {
   title: string;
   reviews: Array<string>;
+  id: number;
 }
 
 const App: FC = () => {
@@ -36,6 +37,12 @@ const App: FC = () => {
       const newMovie: Movie = {
         title: movieTitle,
         reviews: [comment],
+        id:
+          movieCollection.length !== 0
+            ? movieCollection.map((movie) => {
+                return Math.max(movie.id) + 1;
+              })[0]
+            : 0,
       };
       setIsError(false);
       setMovieCollection([...movieCollection, newMovie]);
@@ -91,18 +98,18 @@ const App: FC = () => {
       <Text>Mis películas</Text>
       <InnerWrapper>
         {movieCollection.length !== 0 ? (
-          movieCollection.map((movie, index) => {
+          movieCollection.map((movie) => {
             return (
               <>
-                <Movie key={index}>
-                  {editingComponent === index ? (
+                <Movie key={movie.id}>
+                  {editingComponent === movie.id ? (
                     <div>
                       <div>
                         <label htmlFor="editarTitulo">Edita el título: </label>
                         <TypeTitle
                           onChange={(
                             event: React.ChangeEvent<HTMLInputElement>
-                          ) => handleUpdate(index, event.target.value)}
+                          ) => handleUpdate(movie.id, event.target.value)}
                           type="text"
                           id="editarTitulo"
                           placeholder={movie.title}
@@ -164,9 +171,9 @@ const App: FC = () => {
                   <div>
                     <Button
                       backgroundColor="orange"
-                      onClick={() => handleEdit(index)}
+                      onClick={() => handleEdit(movie.id)}
                     >
-                      {editingComponent === index ? (
+                      {editingComponent === movie.id ? (
                         <span onClick={() => handleClickComment(movie.title)}>
                           Guardar título
                         </span>
@@ -182,6 +189,7 @@ const App: FC = () => {
                     </Button>
                   </div>
                 </Movie>
+
                 <Comments>
                   {movie.reviews.length !== 0
                     ? movie.reviews.map((comment, index) => {
