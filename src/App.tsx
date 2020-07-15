@@ -73,14 +73,14 @@ const App: FC = () => {
       <Title>Cinematik</Title>
       <Text>Registra la última película que has visto</Text>
       <InnerWrapper>
-        <div>
+        <InputBlock>
           <label htmlFor="titulo">Titulo:</label>
           <TypeTitle onChange={handleChange} type="text" id="titulo" />
-        </div>
-        <div>
+        </InputBlock>
+        <InputBlock>
           <label htmlFor="review">Crítica: </label>
           <input onChange={handleChangeComment} type="text" id="review" />
-        </div>
+        </InputBlock>
         {isError && (
           <Error>Debes indicar un título para guardar una película</Error>
         )}
@@ -118,19 +118,48 @@ const App: FC = () => {
                       </div>
                     </div>
                   ) : (
-                    <div>
-                      <span>{movie.title}</span>
-                      <input type="radio" id="1" name="valoracion" value="1" />
-                      <label htmlFor="1">1</label>
-                      <input type="radio" id="2" name="valoracion" value="2" />
-                      <label htmlFor="2">2</label>
-                      <input type="radio" id="3" name="valoracion" value="3" />
-                      <label htmlFor="3">3</label>
-                      <input type="radio" id="4" name="valoracion" value="4" />
-                      <label htmlFor="4">4</label>
-                      <input type="radio" id="5" name="valoracion" value="5" />
-                      <label htmlFor="5">5</label>
-                    </div>
+                    <>
+                      <div>
+                        <span>{movie.title}</span>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="1"
+                          name="valoracion"
+                          value="1"
+                        />
+                        <label htmlFor="1">1</label>
+                        <input
+                          type="radio"
+                          id="2"
+                          name="valoracion"
+                          value="2"
+                        />
+                        <label htmlFor="2">2</label>
+                        <input
+                          type="radio"
+                          id="3"
+                          name="valoracion"
+                          value="3"
+                        />
+                        <label htmlFor="3">3</label>
+                        <input
+                          type="radio"
+                          id="4"
+                          name="valoracion"
+                          value="4"
+                        />
+                        <label htmlFor="4">4</label>
+                        <input
+                          type="radio"
+                          id="5"
+                          name="valoracion"
+                          value="5"
+                        />
+                        <label htmlFor="5">5</label>
+                      </div>
+                    </>
                   )}
                   <div>
                     <Button
@@ -183,7 +212,7 @@ const InnerWrapper = styled.div`
 `;
 
 const Text = styled.div`
-  padding: 0 0 20px;
+  padding: 20px 0;
   font-size: 20px;
 `;
 
@@ -215,4 +244,8 @@ const Movie = styled.div`
 const Comments = styled.div`
   border: 1px solid black;
   padding: 5px 10px;
+`;
+
+const InputBlock = styled.div`
+  padding-bottom: 15px;
 `;
