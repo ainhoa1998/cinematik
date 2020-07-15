@@ -96,22 +96,25 @@ const App: FC = () => {
                 <Movie key={index}>
                   {editingComponent === index ? (
                     <div>
-                      <label htmlFor="editarTitulo">Edita el título: </label>
-                      <TypeTitle
-                        onChange={(
-                          event: React.ChangeEvent<HTMLInputElement>
-                        ) => handleUpdate(index, event.target.value)}
-                        type="text"
-                        id="editarTitulo"
-                        placeholder={movie.title}
-                      />
-                      <br></br>
-                      <label htmlFor="comment">Escribe un comentario: </label>
-                      <TypeTitle
-                        onChange={handleChangeComment}
-                        type="text"
-                        id="comment"
-                      />
+                      <div>
+                        <label htmlFor="editarTitulo">Edita el título: </label>
+                        <TypeTitle
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) => handleUpdate(index, event.target.value)}
+                          type="text"
+                          id="editarTitulo"
+                          placeholder={movie.title}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="comment">Escribe un comentario: </label>
+                        <TypeTitle
+                          onChange={handleChangeComment}
+                          type="text"
+                          id="comment"
+                        />
+                      </div>
                     </div>
                   ) : (
                     <span>{movie.title}</span>
