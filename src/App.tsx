@@ -1,58 +1,13 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { Button } from "./views/components/Button";
+import { AddMovieForm } from "./views/AddMovieForm";
 
 interface Movie {
   title: string;
   reviews: Array<string>;
   id: number;
 }
-
-const AddMovieForm: FC<{
-  onSaveMovie: (movieTitle: string, comment: string) => void;
-}> = ({ onSaveMovie }) => {
-  const [isError, setIsError] = useState(false);
-  const [movieTitle, setMovieTitle] = useState("");
-  const [comment, setComment] = useState("");
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setMovieTitle(event.target.value);
-  };
-
-  const handleChangeComment = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setComment(event.target.value);
-  };
-
-  const handleSave = () => {
-    if (movieTitle !== "") {
-      onSaveMovie(movieTitle, comment);
-      setIsError(false);
-    } else {
-      setIsError(true);
-    }
-  };
-
-  return (
-    <InnerWrapper>
-      <InputBlock>
-        <label htmlFor="titulo">Titulo:</label>
-        <TypeTitle onChange={handleChange} type="text" id="titulo" />
-      </InputBlock>
-      <InputBlock>
-        <label htmlFor="review">Crítica: </label>
-        <input onChange={handleChangeComment} type="text" id="review" />
-      </InputBlock>
-      {isError && (
-        <Error>Debes indicar un título para guardar una película</Error>
-      )}
-      <Button backgroundColor="red" onClick={handleSave}>
-        Guardar
-      </Button>
-    </InnerWrapper>
-  );
-};
 
 const App: FC = () => {
   const [editedComment, setEditedComment] = useState("");
@@ -243,11 +198,6 @@ const Text = styled.div`
   font-size: 20px;
 `;
 
-const Error = styled.div`
-  padding-top: 10px;
-  color: red;
-`;
-
 const InformationText = styled.div`
   font-size: 20px;
   color: grey;
@@ -271,8 +221,4 @@ const Movie = styled.div`
 const Comments = styled.div`
   border: 1px solid black;
   padding: 5px 10px;
-`;
-
-const InputBlock = styled.div`
-  padding-bottom: 15px;
 `;
