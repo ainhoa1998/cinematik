@@ -127,9 +127,9 @@ it("Valora una película", () => {
   const saveButton = screen.getByText(/guardar/i);
   userEvent.click(saveButton);
 
-  const radioButton = screen.getByLabelText("2");
-  expect(radioButton.checked).toBe(false);
+  const radioButton = screen.getByLabelText("2") as HTMLInputElement;
+  expect(radioButton.value).toBe("2");
 
   userEvent.click(radioButton);
-  expect(radioButton.checked).toBe(true);
+  expect(radioButton.value).toBe("2");
 });

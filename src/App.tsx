@@ -8,20 +8,12 @@ interface Movie {
   id: number;
 }
 
-const App: FC = () => {
+const AddMovieForm: FC<{
+  onSaveMovie: (movieTitle: string, comment: string) => void;
+}> = ({ onSaveMovie }) => {
+  const [isError, setIsError] = useState(false);
   const [movieTitle, setMovieTitle] = useState("");
   const [comment, setComment] = useState("");
-  const [editedComment, setEditedComment] = useState("");
-  const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
-  const [isError, setIsError] = useState(false);
-  const [editingComponent, setEditingComponent] = useState(-1);
-
-  const handleUpdate = (index: number, movieChanged: string) => {
-    const updatedMovieCollection = movieCollection;
-
-    updatedMovieCollection[index].title = movieChanged;
-    setMovieCollection(updatedMovieCollection);
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -33,28 +25,65 @@ const App: FC = () => {
     setComment(event.target.value);
   };
 
+  const handleSave = () => {
+    if (movieTitle !== "") {
+      onSaveMovie(movieTitle, comment);
+      setIsError(false);
+    } else {
+      setIsError(true);
+    }
+  };
+
+  return (
+    <InnerWrapper>
+      <InputBlock>
+        <label htmlFor="titulo">Titulo:</label>
+        <TypeTitle onChange={handleChange} type="text" id="titulo" />
+      </InputBlock>
+      <InputBlock>
+        <label htmlFor="review">Crítica: </label>
+        <input onChange={handleChangeComment} type="text" id="review" />
+      </InputBlock>
+      {isError && (
+        <Error>Debes indicar un título para guardar una película</Error>
+      )}
+      <Button backgroundColor="red" onClick={handleSave}>
+        Guardar
+      </Button>
+    </InnerWrapper>
+  );
+};
+
+const App: FC = () => {
+  const [editedComment, setEditedComment] = useState("");
+  const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
+
+  const [editingComponent, setEditingComponent] = useState(-1);
+
+  const handleUpdate = (index: number, movieChanged: string) => {
+    const updatedMovieCollection = movieCollection;
+
+    updatedMovieCollection[index].title = movieChanged;
+    setMovieCollection(updatedMovieCollection);
+  };
+
   const handleEditComment = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setEditedComment(event.target.value);
   };
 
-  const handleClick = () => {
-    if (movieTitle !== "") {
-      const newMovie: Movie = {
-        title: movieTitle,
-        reviews: [comment],
-        id:
-          movieCollection.length !== 0
-            ? movieCollection.map((movie) => {
-                return Math.max(movie.id) + 1;
-              })[0]
-            : 0,
-      };
-      setIsError(false);
-      setMovieCollection([...movieCollection, newMovie]);
-    } else {
-      setIsError(true);
-    }
+  const handleSave = (movieTitle: string, comment: string) => {
+    const newMovie: Movie = {
+      title: movieTitle,
+      reviews: [comment],
+      id:
+        movieCollection.length !== 0
+          ? movieCollection.map((movie) => {
+              return Math.max(movie.id) + 1;
+            })[0]
+          : 0,
+    };
+    setMovieCollection([...movieCollection, newMovie]);
   };
 
   const handleClickComment = (movieTitle: string) => {
@@ -84,22 +113,7 @@ const App: FC = () => {
     <Wrapper>
       <Title>Cinematik</Title>
       <Text>Registra la última película que has visto</Text>
-      <InnerWrapper>
-        <InputBlock>
-          <label htmlFor="titulo">Titulo:</label>
-          <TypeTitle onChange={handleChange} type="text" id="titulo" />
-        </InputBlock>
-        <InputBlock>
-          <label htmlFor="review">Crítica: </label>
-          <input onChange={handleChangeComment} type="text" id="review" />
-        </InputBlock>
-        {isError && (
-          <Error>Debes indicar un título para guardar una película</Error>
-        )}
-        <Button backgroundColor="red" onClick={handleClick}>
-          Guardar
-        </Button>
-      </InnerWrapper>
+      <AddMovieForm onSaveMovie={handleSave} />
       <Text>Mis películas</Text>
       <InnerWrapper>
         {movieCollection.length !== 0 ? (
