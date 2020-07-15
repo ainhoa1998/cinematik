@@ -50,6 +50,7 @@ const App: FC = () => {
       (movie) => movie.title === movieTitle
     );
     movieUpdated?.reviews.push(comment);
+    setComment("");
     setMovieCollection(updatedMovieCollection);
   };
 
