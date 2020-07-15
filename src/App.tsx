@@ -11,6 +11,7 @@ interface Movie {
 const App: FC = () => {
   const [movieTitle, setMovieTitle] = useState("");
   const [comment, setComment] = useState("");
+  const [editedComment, setEditedComment] = useState("");
   const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
   const [isError, setIsError] = useState(false);
   const [editingComponent, setEditingComponent] = useState(-1);
@@ -30,6 +31,11 @@ const App: FC = () => {
   const handleChangeComment = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setComment(event.target.value);
+  };
+
+  const handleEditComment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setEditedComment(event.target.value);
   };
 
   const handleClick = () => {
@@ -56,8 +62,7 @@ const App: FC = () => {
     const movieUpdated = updatedMovieCollection.find(
       (movie) => movie.title === movieTitle
     );
-    movieUpdated?.reviews.push(comment);
-    setComment("");
+    movieUpdated?.reviews.push(editedComment);
     setMovieCollection(updatedMovieCollection);
   };
 
@@ -118,7 +123,7 @@ const App: FC = () => {
                       <div>
                         <label htmlFor="comment">Escribe un comentario: </label>
                         <TypeTitle
-                          onChange={handleChangeComment}
+                          onChange={handleEditComment}
                           type="text"
                           id="comment"
                         />
