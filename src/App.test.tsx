@@ -118,3 +118,18 @@ it("Añade un comentario", () => {
 
   expect(screen.getByText("Película muy buena")).toBeInTheDocument();
 });
+
+it("Valora una película", () => {
+  render(<App />);
+
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
+
+  const radioButton = screen.getByLabelText("2");
+  expect(radioButton.checked).toBe(false);
+
+  userEvent.click(radioButton);
+  expect(radioButton.checked).toBe(true);
+});
