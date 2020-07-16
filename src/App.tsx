@@ -7,6 +7,7 @@ interface Movie {
   title: string;
   reviews: Array<string>;
   id: number;
+  valuation: number;
 }
 
 const App: FC = () => {
@@ -27,7 +28,11 @@ const App: FC = () => {
     setEditedComment(event.target.value);
   };
 
-  const handleSave = (movieTitle: string, comment: string) => {
+  const handleSave = (
+    movieTitle: string,
+    comment: string,
+    valuation: number
+  ) => {
     const newMovie: Movie = {
       title: movieTitle,
       reviews: [comment],
@@ -37,6 +42,7 @@ const App: FC = () => {
               return Math.max(movie.id) + 1;
             })[0]
           : 0,
+      valuation: valuation,
     };
     setMovieCollection([...movieCollection, newMovie]);
   };
@@ -101,6 +107,11 @@ const App: FC = () => {
                   ) : (
                     <>
                       <span>{movie.title}</span>
+                      {movie.valuation < 1 ? (
+                        <span>No hay valoración </span>
+                      ) : (
+                        <span>{movie.valuation} estrellas</span>
+                      )}
                     </>
                   )}
                   <div>

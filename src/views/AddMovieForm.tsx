@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { Button } from "./components/Button";
 
 export const AddMovieForm: FC<{
-  onSaveMovie: (movieTitle: string, comment: string) => void;
+  onSaveMovie: (movieTitle: string, comment: string, valuation: number) => void;
 }> = ({ onSaveMovie }) => {
   const [isError, setIsError] = useState(false);
   const [movieTitle, setMovieTitle] = useState("");
   const [comment, setComment] = useState("");
-  const [radioButton, setRadioButton] = useState("No hay valoración");
+  const [valuation, setValuation] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -22,7 +22,7 @@ export const AddMovieForm: FC<{
 
   const handleSave = () => {
     if (movieTitle !== "") {
-      onSaveMovie(movieTitle, comment);
+      onSaveMovie(movieTitle, comment, valuation);
       setIsError(false);
     } else {
       setIsError(true);
@@ -31,7 +31,7 @@ export const AddMovieForm: FC<{
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setRadioButton(event.target.value);
+    setValuation(event.target.value.charCodeAt(0) - 48);
   };
 
   return (
@@ -51,7 +51,7 @@ export const AddMovieForm: FC<{
           id="1"
           name="valoracion"
           value="1"
-          checked={radioButton === "1"}
+          checked={valuation === 1}
           onChange={handleOptionChange}
         />
         <label htmlFor="1">1</label>
@@ -60,7 +60,7 @@ export const AddMovieForm: FC<{
           id="2"
           name="valoracion"
           value="2"
-          checked={radioButton === "2"}
+          checked={valuation === 2}
           onChange={handleOptionChange}
         />
         <label htmlFor="2">2</label>
@@ -69,7 +69,7 @@ export const AddMovieForm: FC<{
           id="3"
           name="valoracion"
           value="3"
-          checked={radioButton === "3"}
+          checked={valuation === 3}
           onChange={handleOptionChange}
         />
         <label htmlFor="3">3</label>
@@ -78,7 +78,7 @@ export const AddMovieForm: FC<{
           id="4"
           name="valoracion"
           value="4"
-          checked={radioButton === "4"}
+          checked={valuation === 4}
           onChange={handleOptionChange}
         />
         <label htmlFor="4">4</label>
@@ -87,7 +87,7 @@ export const AddMovieForm: FC<{
           id="5"
           name="valoracion"
           value="5"
-          checked={radioButton === "5"}
+          checked={valuation === 5}
           onChange={handleOptionChange}
         />
         <label htmlFor="5">5</label>
@@ -98,7 +98,6 @@ export const AddMovieForm: FC<{
       <Button backgroundColor="red" onClick={handleSave}>
         Guardar
       </Button>
-      <div>{radioButton} estrellas</div>
     </InnerWrapper>
   );
 };

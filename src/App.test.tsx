@@ -125,13 +125,14 @@ it("Valora una película", () => {
 
   const title = screen.getByLabelText(/titulo/i);
   userEvent.type(title, "Star Wars");
-  const saveButton = screen.getByText(/guardar/i);
-  userEvent.click(saveButton);
 
   const radioButton = screen.getByLabelText("2") as HTMLInputElement;
   expect(radioButton.value).toBe("2");
 
   userEvent.click(radioButton);
   expect(radioButton.value).toBe("2");
+
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
   expect(screen.queryByText("2 estrellas")).toBeInTheDocument();
 });
