@@ -47,7 +47,6 @@ const App: FC = () => {
           : 0,
       valuation: valuation,
     };
-    console.log(newMovie.reviews.length, newMovie.reviews);
     setMovieCollection([...movieCollection, newMovie]);
   };
 
