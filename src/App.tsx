@@ -10,26 +10,148 @@ interface Movie {
   valuation: number;
 }
 
-const App: FC = () => {
+const ShowMovie: FC<{
+  movieCollection: Movie[];
+  onUpdateMovie: (movieUpdated: Movie) => void;
+  onDeleteMovie: (movieToDelete: string) => void;
+}> = ({ movieCollection, onUpdateMovie, onDeleteMovie }) => {
   const [editedComment, setEditedComment] = useState("");
-  const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
-
+  const [editedTitle, setEditedTitle] = useState("");
   const [editingComponent, setEditingComponent] = useState(-1);
   const [displayComments, setDisplayComments] = useState<"none" | "block">(
     "none"
   );
 
-  const handleUpdate = (index: number, movieChanged: string) => {
+  const handleUpdateMovie = (movieId: number) => {
     const updatedMovieCollection = movieCollection;
+    const movieUpdated = updatedMovieCollection.find(
+      (movie) => movie.id === movieId
+    );
+    if (!!editedComment) {
+      movieUpdated?.reviews.push(editedComment);
+    }
+    if (!!movieUpdated) {
+      movieUpdated.title = editedTitle;
+      onUpdateMovie(movieUpdated);
+    }
+  };
 
-    updatedMovieCollection[index].title = movieChanged;
-    setMovieCollection(updatedMovieCollection);
+  const handleDelete = (selectedMovie: string) => {
+    onDeleteMovie(selectedMovie);
+
+    setDisplayComments("none");
+  };
+
+  const handleEdit = (index: number) => {
+    if (editingComponent < 0) {
+      setEditingComponent(index);
+    } else {
+      setEditingComponent(-1);
+    }
+  };
+
+  const handleDisplay = (movie: Movie) => {
+    displayComments === "none" && movie.reviews.length > 0
+      ? setDisplayComments("block")
+      : setDisplayComments("none");
+  };
+
+  const handleEditTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setEditedTitle(event.target.value);
   };
 
   const handleEditComment = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setEditedComment(event.target.value);
   };
+
+  return (
+    <InnerWrapper>
+      {movieCollection.length !== 0 ? (
+        movieCollection.map((movie) => {
+          return (
+            <>
+              <Movie onClick={() => handleDisplay(movie)} key={movie.id}>
+                {editingComponent === movie.id ? (
+                  <div>
+                    <div>
+                      <label htmlFor="editarTitulo">Edita el título: </label>
+                      <TypeTitle
+                        onChange={handleEditTitle}
+                        type="text"
+                        id="editarTitulo"
+                        placeholder={movie.title}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="comment">Escribe un comentario: </label>
+                      <TypeTitle
+                        onChange={handleEditComment}
+                        type="text"
+                        id="comment"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span>{movie.title}</span>
+                    {movie.valuation < 1 ? (
+                      <span>No hay valoración </span>
+                    ) : (
+                      <span>{movie.valuation} estrellas</span>
+                    )}
+                    <span>
+                      {movie.reviews.length} comentario
+                      {movie.reviews.length !== 1 ? <span>s</span> : null}
+                    </span>
+                  </>
+                )}
+                <div>
+                  {editingComponent === movie.id ? (
+                    <Button
+                      backgroundColor="orange"
+                      onClick={() => handleUpdateMovie(movie.id)}
+                    >
+                      Guardar título
+                    </Button>
+                  ) : (
+                    <Button
+                      backgroundColor="orange"
+                      onClick={() => handleEdit(movie.id)}
+                    >
+                      Editar
+                    </Button>
+                  )}
+                  <Button
+                    backgroundColor="red"
+                    onClick={() => handleDelete(movie.title)}
+                  >
+                    Eliminar
+                  </Button>
+                </div>
+              </Movie>
+
+              <Comments display={displayComments}>
+                <span>Comentarios</span>
+                {movie.reviews.length !== 0
+                  ? movie.reviews.map((comment, index) => {
+                      return <div key={index}>- {comment}</div>;
+                    })
+                  : null}
+              </Comments>
+            </>
+          );
+        })
+      ) : (
+        <InformationText>No tiene películas añadidas</InformationText>
+      )}
+    </InnerWrapper>
+  );
+};
+
+const App: FC = () => {
+  const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
 
   const handleSave = (
     movieTitle: string,
@@ -50,36 +172,20 @@ const App: FC = () => {
     setMovieCollection([...movieCollection, newMovie]);
   };
 
-  const handleClickComment = (movieTitle: string) => {
+  const handleUpdate = (updatedMovie: Movie) => {
     const updatedMovieCollection = movieCollection;
-    const movieUpdated = updatedMovieCollection.find(
-      (movie) => movie.title === movieTitle
+    const positionUpdatedMovie = updatedMovieCollection.findIndex(
+      (movie) => movie.id === updatedMovie.id
     );
-    if (editedComment !== "") {
-      movieUpdated?.reviews.push(editedComment);
-    }
+    updatedMovieCollection[positionUpdatedMovie] = updatedMovie;
+
     setMovieCollection(updatedMovieCollection);
   };
 
-  const handleDelete = (selectedMovie: string) => {
+  const handleDelete = (movieToDelete: string) => {
     setMovieCollection(
-      movieCollection.filter((movie) => movie.title !== selectedMovie)
+      movieCollection.filter((movie) => movie.title !== movieToDelete)
     );
-    setDisplayComments("none");
-  };
-
-  const handleEdit = (index: number) => {
-    if (editingComponent < 0) {
-      setEditingComponent(index);
-    } else {
-      setEditingComponent(-1);
-    }
-  };
-
-  const handleDisplay = (movie: Movie) => {
-    displayComments === "none" && movie.reviews.length > 0
-      ? setDisplayComments("block")
-      : setDisplayComments("none");
   };
 
   return (
@@ -88,85 +194,11 @@ const App: FC = () => {
       <Text>Registra la última película que has visto</Text>
       <AddMovieForm onSaveMovie={handleSave} />
       <Text>Mis películas</Text>
-      <InnerWrapper>
-        {movieCollection.length !== 0 ? (
-          movieCollection.map((movie) => {
-            return (
-              <>
-                <Movie onClick={() => handleDisplay(movie)} key={movie.id}>
-                  {editingComponent === movie.id ? (
-                    <div>
-                      <div>
-                        <label htmlFor="editarTitulo">Edita el título: </label>
-                        <TypeTitle
-                          onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>
-                          ) => handleUpdate(movie.id, event.target.value)}
-                          type="text"
-                          id="editarTitulo"
-                          placeholder={movie.title}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="comment">Escribe un comentario: </label>
-                        <TypeTitle
-                          onChange={handleEditComment}
-                          type="text"
-                          id="comment"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <span>{movie.title}</span>
-                      {movie.valuation < 1 ? (
-                        <span>No hay valoración </span>
-                      ) : (
-                        <span>{movie.valuation} estrellas</span>
-                      )}
-                      <span>
-                        {movie.reviews.length} comentario
-                        {movie.reviews.length !== 1 ? <span>s</span> : null}
-                      </span>
-                    </>
-                  )}
-                  <div>
-                    <Button
-                      backgroundColor="orange"
-                      onClick={() => handleEdit(movie.id)}
-                    >
-                      {editingComponent === movie.id ? (
-                        <span onClick={() => handleClickComment(movie.title)}>
-                          Guardar título
-                        </span>
-                      ) : (
-                        <span>Editar</span>
-                      )}
-                    </Button>
-                    <Button
-                      backgroundColor="red"
-                      onClick={() => handleDelete(movie.title)}
-                    >
-                      Eliminar
-                    </Button>
-                  </div>
-                </Movie>
-
-                <Comments display={displayComments}>
-                  <span>Comentarios</span>
-                  {movie.reviews.length !== 0
-                    ? movie.reviews.map((comment, index) => {
-                        return <div key={index}>- {comment}</div>;
-                      })
-                    : null}
-                </Comments>
-              </>
-            );
-          })
-        ) : (
-          <InformationText>No tiene películas añadidas</InformationText>
-        )}
-      </InnerWrapper>
+      <ShowMovie
+        movieCollection={movieCollection}
+        onUpdateMovie={handleUpdate}
+        onDeleteMovie={handleDelete}
+      />
     </Wrapper>
   );
 };
