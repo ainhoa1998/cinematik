@@ -210,5 +210,6 @@ const Comments = styled.div<{ display: "none" | "block" }>`
   border: 1px solid black;
   padding: 5px 10px;
   display: ${(props) => props.display};
-  background-color: grey;
+  background-color: #aaaaaa;
+  color: white;
 `;
