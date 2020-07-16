@@ -8,6 +8,7 @@ export const AddMovieForm: FC<{
   const [isError, setIsError] = useState(false);
   const [movieTitle, setMovieTitle] = useState("");
   const [comment, setComment] = useState("");
+  const [radioButton, setRadioButton] = useState("No hay valoración");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -28,6 +29,11 @@ export const AddMovieForm: FC<{
     }
   };
 
+  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setRadioButton(event.target.value);
+  };
+
   return (
     <InnerWrapper>
       <InputBlock>
@@ -38,12 +44,61 @@ export const AddMovieForm: FC<{
         <label htmlFor="review">Crítica: </label>
         <input onChange={handleChangeComment} type="text" id="review" />
       </InputBlock>
+      <InputBlock>
+        <span>Crítica: </span>
+        <input
+          type="radio"
+          id="1"
+          name="valoracion"
+          value="1"
+          checked={radioButton === "1"}
+          onChange={handleOptionChange}
+        />
+        <label htmlFor="1">1</label>
+        <input
+          type="radio"
+          id="2"
+          name="valoracion"
+          value="2"
+          checked={radioButton === "2"}
+          onChange={handleOptionChange}
+        />
+        <label htmlFor="2">2</label>
+        <input
+          type="radio"
+          id="3"
+          name="valoracion"
+          value="3"
+          checked={radioButton === "3"}
+          onChange={handleOptionChange}
+        />
+        <label htmlFor="3">3</label>
+        <input
+          type="radio"
+          id="4"
+          name="valoracion"
+          value="4"
+          checked={radioButton === "4"}
+          onChange={handleOptionChange}
+        />
+        <label htmlFor="4">4</label>
+        <input
+          type="radio"
+          id="5"
+          name="valoracion"
+          value="5"
+          checked={radioButton === "5"}
+          onChange={handleOptionChange}
+        />
+        <label htmlFor="5">5</label>
+      </InputBlock>
       {isError && (
         <Error>Debes indicar un título para guardar una película</Error>
       )}
       <Button backgroundColor="red" onClick={handleSave}>
         Guardar
       </Button>
+      <div>{radioButton} estrellas</div>
     </InnerWrapper>
   );
 };

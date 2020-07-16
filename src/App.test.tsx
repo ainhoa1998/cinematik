@@ -80,6 +80,7 @@ it("Elimina una película añadida", () => {
 
   expect(screen.queryByText("Star Wars")).not.toBeInTheDocument();
 });
+expect(screen.queryByText("Star Wars")).not.toBeInTheDocument();
 
 it("Edita una película añadida", () => {
   render(<App />);
@@ -132,4 +133,5 @@ it("Valora una película", () => {
 
   userEvent.click(radioButton);
   expect(radioButton.value).toBe("2");
+  expect(screen.queryByText("2 estrellas")).toBeInTheDocument();
 });
