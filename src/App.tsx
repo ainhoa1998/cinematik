@@ -153,6 +153,7 @@ const App: FC = () => {
                 </Movie>
 
                 <Comments display={displayComments}>
+                  <span>Comentarios</span>
                   {movie.reviews.length !== 0
                     ? movie.reviews.map((comment, index) => {
                         return <div key={index}>- {comment}</div>;
