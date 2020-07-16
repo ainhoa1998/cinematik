@@ -30,7 +30,7 @@ it("Añade una película con crítica", () => {
   const saveButton = screen.getByText(/guardar/i);
   userEvent.click(saveButton);
 
-  expect(screen.getByText("Es una película muy buena.")).toBeInTheDocument();
+  expect(screen.getByText("- Es una película muy buena.")).toBeInTheDocument();
 });
 
 it("Añade dos películas", () => {
@@ -117,7 +117,7 @@ it("Añade un comentario", () => {
   const saveChanges = screen.getByText(/guardar título/i);
   userEvent.click(saveChanges);
 
-  expect(screen.getByText("Película muy buena")).toBeInTheDocument();
+  expect(screen.getByText("- Película muy buena")).toBeInTheDocument();
 });
 
 it("Valora una película", () => {
