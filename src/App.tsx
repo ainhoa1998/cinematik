@@ -112,6 +112,10 @@ const App: FC = () => {
                       ) : (
                         <span>{movie.valuation} estrellas</span>
                       )}
+                      <span>
+                        {movie.reviews.length} comentario
+                        {movie.reviews.length > 1 ? <span>s</span> : null}
+                      </span>
                     </>
                   )}
                   <div>
