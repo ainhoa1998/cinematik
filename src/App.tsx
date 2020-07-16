@@ -75,8 +75,8 @@ const App: FC = () => {
     }
   };
 
-  const handleDisplay = () => {
-    displayComments === "none"
+  const handleDisplay = (reviewsLength: number) => {
+    displayComments === "none" && reviewsLength > 0
       ? setDisplayComments("block")
       : setDisplayComments("none");
   };
@@ -92,7 +92,10 @@ const App: FC = () => {
           movieCollection.map((movie) => {
             return (
               <>
-                <Movie onClick={handleDisplay} key={movie.id}>
+                <Movie
+                  onClick={() => handleDisplay(movie.reviews.length)}
+                  key={movie.id}
+                >
                   {editingComponent === movie.id ? (
                     <div>
                       <div>
