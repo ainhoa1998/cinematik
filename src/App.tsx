@@ -38,7 +38,7 @@ const App: FC = () => {
   ) => {
     const newMovie: Movie = {
       title: movieTitle,
-      reviews: [comment],
+      reviews: comment !== "" ? [comment] : [],
       id:
         movieCollection.length !== 0
           ? movieCollection.map((movie) => {
@@ -47,6 +47,7 @@ const App: FC = () => {
           : 0,
       valuation: valuation,
     };
+    console.log(newMovie.reviews.length, newMovie.reviews);
     setMovieCollection([...movieCollection, newMovie]);
   };
 
@@ -124,7 +125,7 @@ const App: FC = () => {
                       )}
                       <span>
                         {movie.reviews.length} comentario
-                        {movie.reviews.length > 1 ? <span>s</span> : null}
+                        {movie.reviews.length !== 1 ? <span>s</span> : null}
                       </span>
                     </>
                   )}
@@ -209,4 +210,5 @@ const Comments = styled.div<{ display: "none" | "block" }>`
   border: 1px solid black;
   padding: 5px 10px;
   display: ${(props) => props.display};
+  background-color: grey;
 `;
