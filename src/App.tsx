@@ -56,7 +56,9 @@ const App: FC = () => {
     const movieUpdated = updatedMovieCollection.find(
       (movie) => movie.title === movieTitle
     );
-    movieUpdated?.reviews.push(editedComment);
+    if (editedComment !== "") {
+      movieUpdated?.reviews.push(editedComment);
+    }
     setMovieCollection(updatedMovieCollection);
   };
 
