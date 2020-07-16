@@ -15,6 +15,9 @@ const App: FC = () => {
   const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
 
   const [editingComponent, setEditingComponent] = useState(-1);
+  const [displayComments, setDisplayComments] = useState<"none" | "block">(
+    "none"
+  );
 
   const handleUpdate = (index: number, movieChanged: string) => {
     const updatedMovieCollection = movieCollection;
@@ -60,6 +63,7 @@ const App: FC = () => {
     setMovieCollection(
       movieCollection.filter((movie) => movie.title !== selectedMovie)
     );
+    setDisplayComments("none");
   };
 
   const handleEdit = (index: number) => {
@@ -68,6 +72,12 @@ const App: FC = () => {
     } else {
       setEditingComponent(-1);
     }
+  };
+
+  const handleDisplay = () => {
+    displayComments === "none"
+      ? setDisplayComments("block")
+      : setDisplayComments("none");
   };
 
   return (
@@ -81,7 +91,7 @@ const App: FC = () => {
           movieCollection.map((movie) => {
             return (
               <>
-                <Movie key={movie.id}>
+                <Movie onClick={handleDisplay} key={movie.id}>
                   {editingComponent === movie.id ? (
                     <div>
                       <div>
@@ -140,7 +150,7 @@ const App: FC = () => {
                   </div>
                 </Movie>
 
-                <Comments>
+                <Comments display={displayComments}>
                   {movie.reviews.length !== 0
                     ? movie.reviews.map((comment, index) => {
                         return <div key={index}>- {comment}</div>;
@@ -192,9 +202,11 @@ const Movie = styled.div`
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
-const Comments = styled.div`
+const Comments = styled.div<{ display: "none" | "block" }>`
   border: 1px solid black;
   padding: 5px 10px;
+  display: ${(props) => props.display};
 `;
