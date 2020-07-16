@@ -45,7 +45,7 @@ export const AddMovieForm: FC<{
         <input onChange={handleChangeComment} type="text" id="review" />
       </InputBlock>
       <InputBlock>
-        <span>Crítica: </span>
+        <span>Valoración: </span>
         <input
           type="radio"
           id="1"
