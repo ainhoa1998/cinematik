@@ -106,7 +106,7 @@ export const ShowMovie: FC<{
                       backgroundColor="orange"
                       onClick={() => handleUpdateMovie(movie.id)}
                     >
-                      Guardar título
+                      Guardar película
                     </Button>
                   ) : (
                     <Button

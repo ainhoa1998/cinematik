@@ -97,7 +97,7 @@ it("Edita una película añadida", () => {
 
   const changeTitle = screen.getByPlaceholderText("Star Wars");
   userEvent.type(changeTitle, "Star Wars 2");
-  const saveChanges = screen.getByText(/guardar título/i);
+  const saveChanges = screen.getByText(/guardar película/i);
   userEvent.click(saveChanges);
 
   expect(screen.queryByText("Star Wars 2")).toBeInTheDocument();
@@ -116,7 +116,7 @@ it("Añade un comentario", () => {
 
   const writeComent = screen.getByLabelText(/escribe un comentario/i);
   userEvent.type(writeComent, "Película muy buena");
-  const saveChanges = screen.getByText(/guardar título/i);
+  const saveChanges = screen.getByText(/guardar película/i);
   userEvent.click(saveChanges);
 
   expect(screen.getByText("- Película muy buena")).toBeInTheDocument();
