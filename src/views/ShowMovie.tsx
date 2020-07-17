@@ -11,9 +11,7 @@ export const ShowMovie: FC<{
   const [editedComment, setEditedComment] = useState("");
   const [editedTitle, setEditedTitle] = useState("");
   const [editingComponent, setEditingComponent] = useState(-1);
-  const [displayComments, setDisplayComments] = useState<"none" | "block">(
-    "none"
-  );
+  const [displayComments, setDisplayComments] = useState(-1);
 
   const handleUpdateMovie = (movieId: number) => {
     const updatedMovieCollection = movieCollection;
@@ -34,7 +32,7 @@ export const ShowMovie: FC<{
   const handleDelete = (selectedMovie: string) => {
     onDeleteMovie(selectedMovie);
 
-    setDisplayComments("none");
+    setDisplayComments(-1);
   };
 
   const handleEdit = (index: number) => {
@@ -46,9 +44,9 @@ export const ShowMovie: FC<{
   };
 
   const handleDisplay = (movie: Movie) => {
-    displayComments === "none" && movie.reviews.length > 0
-      ? setDisplayComments("block")
-      : setDisplayComments("none");
+    displayComments === -1 && movie.reviews.length > 0
+      ? setDisplayComments(movie.id)
+      : setDisplayComments(-1);
   };
 
   const handleEditTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,15 +124,16 @@ export const ShowMovie: FC<{
                   </Button>
                 </div>
               </StyledMovie>
-
-              <Comments display={displayComments}>
-                <span>Comentarios</span>
-                {movie.reviews.length !== 0
-                  ? movie.reviews.map((comment, index) => {
-                      return <div key={index}>- {comment}</div>;
-                    })
-                  : null}
-              </Comments>
+              {displayComments === movie.id ? (
+                <Comments>
+                  <span>Comentarios</span>
+                  {movie.reviews.length !== 0
+                    ? movie.reviews.map((comment, index) => {
+                        return <div key={index}>- {comment}</div>;
+                      })
+                    : null}
+                </Comments>
+              ) : null}
             </>
           );
         })
@@ -158,10 +157,9 @@ const InnerWrapper = styled.div`
   margin: 0 50px;
 `;
 
-const Comments = styled.div<{ display: "none" | "block" }>`
+const Comments = styled.div`
   border: 1px solid black;
   padding: 5px 10px;
-  display: ${(props) => props.display};
   background-color: #aaaaaa;
   color: white;
 `;

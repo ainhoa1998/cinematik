@@ -29,6 +29,8 @@ it("Añade una película con crítica", () => {
   userEvent.type(review, "Es una película muy buena.");
   const saveButton = screen.getByText(/guardar/i);
   userEvent.click(saveButton);
+  const openComments = screen.getByText("Star Wars");
+  userEvent.click(openComments);
 
   expect(screen.getByText("- Es una película muy buena.")).toBeInTheDocument();
 });

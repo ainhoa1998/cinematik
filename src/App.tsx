@@ -23,13 +23,12 @@ const App: FC = () => {
       reviews: comment !== "" ? [comment] : [],
       id:
         movieCollection.length !== 0
-          ? movieCollection.map((movie) => {
-              return Math.max(movie.id) + 1;
-            })[0]
+          ? movieCollection[movieCollection.length - 1].id + 1
           : 0,
       valuation: valuation,
     };
     setMovieCollection([...movieCollection, newMovie]);
+    console.log(newMovie.id);
   };
 
   const handleUpdate = (updatedMovie: Movie) => {
