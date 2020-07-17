@@ -1,13 +1,7 @@
 import { Button } from "./components/Button";
 import React, { FC, useState } from "react";
 import styled from "styled-components";
-
-interface Movie {
-  title: string;
-  reviews: Array<string>;
-  id: number;
-  valuation: number;
-}
+import { Movie } from "../App";
 
 export const ShowMovie: FC<{
   movieCollection: Movie[];
@@ -73,7 +67,7 @@ export const ShowMovie: FC<{
         movieCollection.map((movie) => {
           return (
             <>
-              <Movie onClick={() => handleDisplay(movie)} key={movie.id}>
+              <StyledMovie onClick={() => handleDisplay(movie)} key={movie.id}>
                 {editingComponent === movie.id ? (
                   <div>
                     <div>
@@ -131,7 +125,7 @@ export const ShowMovie: FC<{
                     Eliminar
                   </Button>
                 </div>
-              </Movie>
+              </StyledMovie>
 
               <Comments display={displayComments}>
                 <span>Comentarios</span>
@@ -172,7 +166,7 @@ const Comments = styled.div<{ display: "none" | "block" }>`
   color: white;
 `;
 
-const Movie = styled.div`
+const StyledMovie = styled.div`
   border: 1px solid black;
   padding: 5px 10px;
   display: flex;

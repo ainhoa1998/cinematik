@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { AddMovieForm } from "./views/AddMovieForm";
 import { ShowMovie } from "./views/ShowMovie";
 
-interface Movie {
+export interface Movie {
   title: string;
   reviews: Array<string>;
   id: number;
