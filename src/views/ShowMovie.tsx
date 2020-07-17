@@ -6,7 +6,7 @@ import { Movie } from "../App";
 export const ShowMovie: FC<{
   movieCollection: Movie[];
   onUpdateMovie: (movieUpdated: Movie) => void;
-  onDeleteMovie: (movieToDelete: string) => void;
+  onDeleteMovie: (movieToDelete: number) => void;
 }> = ({ movieCollection, onUpdateMovie, onDeleteMovie }) => {
   const [editedComment, setEditedComment] = useState("");
   const [editedTitle, setEditedTitle] = useState("");
@@ -29,7 +29,7 @@ export const ShowMovie: FC<{
     setEditingComponent(-1);
   };
 
-  const handleDelete = (selectedMovie: string) => {
+  const handleDelete = (selectedMovie: number) => {
     onDeleteMovie(selectedMovie);
 
     setDisplayComments(-1);
@@ -118,7 +118,7 @@ export const ShowMovie: FC<{
                   )}
                   <Button
                     backgroundColor="red"
-                    onClick={() => handleDelete(movie.title)}
+                    onClick={() => handleDelete(movie.id)}
                   >
                     Eliminar
                   </Button>

@@ -41,9 +41,9 @@ const App: FC = () => {
     setMovieCollection(updatedMovieCollection);
   };
 
-  const handleDelete = (movieToDelete: string) => {
+  const handleDelete = (movieToDelete: number) => {
     setMovieCollection(
-      movieCollection.filter((movie) => movie.title !== movieToDelete)
+      movieCollection.filter((movie) => movie.id !== movieToDelete)
     );
   };
 
