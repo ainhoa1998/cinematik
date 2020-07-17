@@ -29,11 +29,13 @@ const ShowMovie: FC<{
     );
     if (!!editedComment) {
       movieUpdated?.reviews.push(editedComment);
+      setEditedComment("");
     }
     if (!!movieUpdated) {
       movieUpdated.title = editedTitle;
       onUpdateMovie(movieUpdated);
     }
+    setEditingComponent(-1);
   };
 
   const handleDelete = (selectedMovie: string) => {
