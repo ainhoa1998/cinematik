@@ -22,7 +22,7 @@ export const ShowMovie: FC<{
       movieUpdated?.reviews.push(editedComment);
       setEditedComment("");
     }
-    if (!!movieUpdated) {
+    if (!!movieUpdated && !!editedTitle) {
       movieUpdated.title = editedTitle;
       onUpdateMovie(movieUpdated);
     }

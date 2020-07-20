@@ -28,7 +28,6 @@ const App: FC = () => {
       valuation: valuation,
     };
     setMovieCollection([...movieCollection, newMovie]);
-    console.log(newMovie.id);
   };
 
   const handleUpdate = (updatedMovie: Movie) => {
