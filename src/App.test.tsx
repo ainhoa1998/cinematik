@@ -136,14 +136,24 @@ it("Valora una película", () => {
 
   const saveButton = screen.getByText(/guardar/i);
   userEvent.click(saveButton);
-  expect(screen.queryByText("2 estrellas")).toBeInTheDocument();
+  expect(screen.getByText("2 estrellas")).toBeInTheDocument();
 });
 
-/*it("Edita valoración de una película", () => {
+it("Edita valoración de una película", () => {
   render(<App />);
 
   const title = screen.getByLabelText(/titulo/i);
   userEvent.type(title, "Star Wars");
 
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
 
-});*/
+  const editButton = screen.getByText(/editar/i);
+  userEvent.click(editButton);
+  const radioButtonChange = screen.getByLabelText("3edit") as HTMLInputElement;
+  userEvent.click(radioButtonChange);
+  const saveChanges = screen.getByText(/guardar película/i);
+  userEvent.click(saveChanges);
+
+  expect(screen.getByText("3 estrellas")).toBeInTheDocument();
+});
