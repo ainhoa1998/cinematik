@@ -65,65 +65,68 @@ export const ShowMovie: FC<{
         movieCollection.map((movie) => {
           return (
             <>
-              <StyledMovie onClick={() => handleDisplay(movie)} key={movie.id}>
-                {editingComponent === movie.id ? (
+              {editingComponent === movie.id ? (
+                <EditMovie>
                   <div>
-                    <div>
-                      <label htmlFor="editarTitulo">Edita el título: </label>
-                      <TypeTitle
-                        onChange={handleEditTitle}
-                        type="text"
-                        id="editarTitulo"
-                        placeholder={movie.title}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="comment">Escribe un comentario: </label>
-                      <TypeTitle
-                        onChange={handleEditComment}
-                        type="text"
-                        id="comment"
-                      />
-                    </div>
+                    <label htmlFor="editarTitulo">Edita el título: </label>
+                    <TypeTitle
+                      onChange={handleEditTitle}
+                      type="text"
+                      id="editarTitulo"
+                      placeholder={movie.title}
+                    />
                   </div>
-                ) : (
-                  <>
-                    <span>{movie.title}</span>
-                    {movie.valuation < 1 ? (
-                      <span>No hay valoración </span>
-                    ) : (
-                      <span>{movie.valuation} estrellas</span>
-                    )}
-                    <span>
-                      {movie.reviews.length} comentario
-                      {movie.reviews.length !== 1 ? <span>s</span> : null}
-                    </span>
-                  </>
-                )}
-                <div>
-                  {editingComponent === movie.id ? (
-                    <Button
-                      backgroundColor="orange"
-                      onClick={() => handleUpdateMovie(movie.id)}
-                    >
-                      Guardar película
-                    </Button>
+                  <div>
+                    <label htmlFor="comment">Escribe un comentario: </label>
+                    <TypeTitle
+                      onChange={handleEditComment}
+                      type="text"
+                      id="comment"
+                    />
+                  </div>
+                </EditMovie>
+              ) : (
+                <StyledMovie
+                  onClick={() => handleDisplay(movie)}
+                  key={movie.id}
+                >
+                  <span>{movie.title}</span>
+                  {movie.valuation < 1 ? (
+                    <span>No hay valoración </span>
                   ) : (
-                    <Button
-                      backgroundColor="orange"
-                      onClick={() => handleEdit(movie.id)}
-                    >
-                      Editar
-                    </Button>
+                    <span>{movie.valuation} estrellas</span>
                   )}
+                  <span>
+                    {movie.reviews.length} comentario
+                    {movie.reviews.length !== 1 ? <span>s</span> : null}
+                  </span>
+                </StyledMovie>
+              )}
+
+              <div>
+                {editingComponent === movie.id ? (
                   <Button
-                    backgroundColor="red"
-                    onClick={() => handleDelete(movie.id)}
+                    backgroundColor="orange"
+                    onClick={() => handleUpdateMovie(movie.id)}
                   >
-                    Eliminar
+                    Guardar película
                   </Button>
-                </div>
-              </StyledMovie>
+                ) : (
+                  <Button
+                    backgroundColor="orange"
+                    onClick={() => handleEdit(movie.id)}
+                  >
+                    Editar
+                  </Button>
+                )}
+                <Button
+                  backgroundColor="red"
+                  onClick={() => handleDelete(movie.id)}
+                >
+                  Eliminar
+                </Button>
+              </div>
+
               {displayComments === movie.id ? (
                 <Comments>
                   <span>Comentarios</span>
@@ -170,4 +173,9 @@ const StyledMovie = styled.div`
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+`;
+
+const EditMovie = styled.div`
+  border: 1px solid black;
+  padding: 5px 10px;
 `;

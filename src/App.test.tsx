@@ -118,6 +118,8 @@ it("Añade un comentario", () => {
   userEvent.type(writeComent, "Película muy buena");
   const saveChanges = screen.getByText(/guardar película/i);
   userEvent.click(saveChanges);
+  const openComments = screen.getByText("Star Wars");
+  userEvent.click(openComments);
 
   expect(screen.getByText("- Película muy buena")).toBeInTheDocument();
 });
