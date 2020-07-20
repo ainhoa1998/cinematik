@@ -150,7 +150,9 @@ it("Edita valoración de una película", () => {
 
   const editButton = screen.getByText(/editar/i);
   userEvent.click(editButton);
-  const radioButtonChange = screen.getByLabelText("3edit") as HTMLInputElement;
+  const radioButtonChange = screen.getByLabelText(
+    "3 estrellas"
+  ) as HTMLInputElement;
   userEvent.click(radioButtonChange);
   const saveChanges = screen.getByText(/guardar película/i);
   userEvent.click(saveChanges);

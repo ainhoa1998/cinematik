@@ -96,51 +96,61 @@ export const ShowMovie: FC<{
                     </div>
                     <div>
                       <span>Valoración: </span>
-                      <input
-                        type="radio"
-                        id="1edit"
-                        name="editValoracion"
-                        value="1edit"
-                        checked={editedValuation === 1}
-                        onChange={handleOptionChange}
-                      />
-                      <label htmlFor="1edit">1edit</label>
-                      <input
-                        type="radio"
-                        id="2edit"
-                        name="editValoracion"
-                        value="2edit"
-                        checked={editedValuation === 2}
-                        onChange={handleOptionChange}
-                      />
-                      <label htmlFor="2edit">2edit</label>
-                      <input
-                        type="radio"
-                        id="3edit"
-                        name="editValoracion"
-                        value="3edit"
-                        checked={editedValuation === 3}
-                        onChange={handleOptionChange}
-                      />
-                      <label htmlFor="3edit">3edit</label>
-                      <input
-                        type="radio"
-                        id="4edit"
-                        name="editValoracion"
-                        value="4edit"
-                        checked={editedValuation === 4}
-                        onChange={handleOptionChange}
-                      />
-                      <label htmlFor="4edit">4edit</label>
-                      <input
-                        type="radio"
-                        id="5edit"
-                        name="editValoracion"
-                        value="5edit"
-                        checked={editedValuation === 5}
-                        onChange={handleOptionChange}
-                      />
-                      <label htmlFor="5edit">5edit</label>
+                      <div>
+                        <input
+                          type="radio"
+                          id="1edit"
+                          name="editValoracion"
+                          value="1edit"
+                          checked={editedValuation === 1}
+                          onChange={handleOptionChange}
+                        />
+                        <label htmlFor="1edit">1 estrella</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="2edit"
+                          name="editValoracion"
+                          value="2edit"
+                          checked={editedValuation === 2}
+                          onChange={handleOptionChange}
+                        />
+                        <label htmlFor="2edit">2 estrellas</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="3edit"
+                          name="editValoracion"
+                          value="3edit"
+                          checked={editedValuation === 3}
+                          onChange={handleOptionChange}
+                        />
+                        <label htmlFor="3edit">3 estrellas</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="4edit"
+                          name="editValoracion"
+                          value="4edit"
+                          checked={editedValuation === 4}
+                          onChange={handleOptionChange}
+                        />
+                        <label htmlFor="4edit">4 estrellas</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="5edit"
+                          name="editValoracion"
+                          value="5edit"
+                          checked={editedValuation === 5}
+                          onChange={handleOptionChange}
+                        />
+                        <label htmlFor="5edit">5 estrellas</label>
+                      </div>
                     </div>
                   </div>
                 ) : (
