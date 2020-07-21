@@ -77,7 +77,6 @@ export const ShowMovie: FC<{
       movieUpdated.reviews = movieUpdated.reviews.filter(
         (review) => review !== movieUpdated.reviews[index]
       );
-      console.log(movieUpdated);
       onUpdateMovie(movieUpdated);
     }
   };
