@@ -11,7 +11,6 @@ export const ShowMovie: FC<{
   const [editedComment, setEditedComment] = useState("");
   const [editedTitle, setEditedTitle] = useState("");
   const [editedValuation, setEditedValuation] = useState(0);
-  const [editedReviews, setEditedReviews] = useState<string[]>([]);
   const [editingComponent, setEditingComponent] = useState(-1);
   const [displayComments, setDisplayComments] = useState(-1);
 
@@ -81,6 +80,7 @@ export const ShowMovie: FC<{
       );
       onUpdateMovie(movieUpdated);
     }
+    setDisplayComments(-1);
   };
 
   return (

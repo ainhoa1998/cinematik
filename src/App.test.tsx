@@ -179,8 +179,6 @@ it("Elimina un comentario", () => {
 
   const deleteButton = screen.getByText(/eliminar comentario/i);
   userEvent.click(deleteButton);
-  userEvent.click(openComments);
-  userEvent.click(openComments);
 
   expect(screen.queryByText(/película muy buena/i)).not.toBeInTheDocument();
 });
