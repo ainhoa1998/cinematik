@@ -11,6 +11,7 @@ export const ShowMovie: FC<{
   const [editedComment, setEditedComment] = useState("");
   const [editedTitle, setEditedTitle] = useState("");
   const [editedValuation, setEditedValuation] = useState(0);
+  const [editedReviews, setEditedReviews] = useState<string[]>([]);
   const [editingComponent, setEditingComponent] = useState(-1);
   const [displayComments, setDisplayComments] = useState(-1);
 
@@ -73,10 +74,14 @@ export const ShowMovie: FC<{
     const movieUpdated = updatedMovieCollection.find(
       (movie) => movie.id === movieToDelete.id
     );
+
     if (!!movieUpdated) {
-      movieUpdated.reviews = movieUpdated.reviews.filter(
-        (review) => review !== movieUpdated.reviews[index]
+      setEditedReviews(
+        movieUpdated.reviews.filter(
+          (review) => review !== movieUpdated.reviews[index]
+        )
       );
+      movieUpdated.reviews = editedReviews;
       onUpdateMovie(movieUpdated);
     }
   };
