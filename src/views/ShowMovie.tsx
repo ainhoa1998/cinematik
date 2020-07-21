@@ -76,12 +76,9 @@ export const ShowMovie: FC<{
     );
 
     if (!!movieUpdated) {
-      setEditedReviews(
-        movieUpdated.reviews.filter(
-          (review) => review !== movieUpdated.reviews[index]
-        )
+      movieUpdated.reviews = movieUpdated.reviews.filter(
+        (review) => review !== movieUpdated.reviews[index]
       );
-      movieUpdated.reviews = editedReviews;
       onUpdateMovie(movieUpdated);
     }
   };
@@ -221,11 +218,11 @@ export const ShowMovie: FC<{
                         return (
                           <div key={index}>
                             - {comment}
-                            <button
+                            <DeleteReview
                               onClick={() => handleDeleteReview(movie, index)}
                             >
                               Eliminar comentario
-                            </button>
+                            </DeleteReview>
                           </div>
                         );
                       })
@@ -279,4 +276,12 @@ const Pelicula = styled.div`
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+`;
+
+const DeleteReview = styled.button`
+  color: red;
+  text-transform: lowercase;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;
