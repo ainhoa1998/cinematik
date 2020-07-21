@@ -68,6 +68,20 @@ export const ShowMovie: FC<{
     setEditedValuation(event.target.value.charCodeAt(0) - 48);
   };
 
+  const handleDeleteReview = (movieToDelete: Movie, index: number) => {
+    const updatedMovieCollection = movieCollection;
+    const movieUpdated = updatedMovieCollection.find(
+      (movie) => movie.id === movieToDelete.id
+    );
+    if (!!movieUpdated) {
+      movieUpdated.reviews = movieUpdated.reviews.filter(
+        (review) => review !== movieUpdated.reviews[index]
+      );
+      console.log(movieUpdated);
+      onUpdateMovie(movieUpdated);
+    }
+  };
+
   return (
     <InnerWrapper>
       {movieCollection.length !== 0 ? (
@@ -102,7 +116,7 @@ export const ShowMovie: FC<{
                           id="1edit"
                           name="editValoracion"
                           value="1edit"
-                          checked={editedValuation === 1}
+                          checked={movie.valuation === 1}
                           onChange={handleOptionChange}
                         />
                         <label htmlFor="1edit">1 estrella</label>
@@ -113,7 +127,7 @@ export const ShowMovie: FC<{
                           id="2edit"
                           name="editValoracion"
                           value="2edit"
-                          checked={editedValuation === 2}
+                          checked={movie.valuation === 2}
                           onChange={handleOptionChange}
                         />
                         <label htmlFor="2edit">2 estrellas</label>
@@ -124,7 +138,7 @@ export const ShowMovie: FC<{
                           id="3edit"
                           name="editValoracion"
                           value="3edit"
-                          checked={editedValuation === 3}
+                          checked={movie.valuation === 3}
                           onChange={handleOptionChange}
                         />
                         <label htmlFor="3edit">3 estrellas</label>
@@ -135,7 +149,7 @@ export const ShowMovie: FC<{
                           id="4edit"
                           name="editValoracion"
                           value="4edit"
-                          checked={editedValuation === 4}
+                          checked={movie.valuation === 4}
                           onChange={handleOptionChange}
                         />
                         <label htmlFor="4edit">4 estrellas</label>
@@ -146,7 +160,7 @@ export const ShowMovie: FC<{
                           id="5edit"
                           name="editValoracion"
                           value="5edit"
-                          checked={editedValuation === 5}
+                          checked={movie.valuation === 5}
                           onChange={handleOptionChange}
                         />
                         <label htmlFor="5edit">5 estrellas</label>
@@ -200,7 +214,16 @@ export const ShowMovie: FC<{
                   <span>Comentarios</span>
                   {movie.reviews.length !== 0
                     ? movie.reviews.map((comment, index) => {
-                        return <div key={index}>- {comment}</div>;
+                        return (
+                          <div key={index}>
+                            - {comment}
+                            <button
+                              onClick={() => handleDeleteReview(movie, index)}
+                            >
+                              Eliminar comentario
+                            </button>
+                          </div>
+                        );
                       })
                     : null}
                 </Comments>

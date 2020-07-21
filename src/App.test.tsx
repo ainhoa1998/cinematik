@@ -159,3 +159,28 @@ it("Edita valoración de una película", () => {
 
   expect(screen.getByText("3 estrellas")).toBeInTheDocument();
 });
+
+it("Elimina un comentario", () => {
+  render(<App />);
+
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
+  const editButton = screen.getByText(/editar/i);
+  userEvent.click(editButton);
+
+  const writeComent = screen.getByLabelText(/escribe un comentario/i);
+  userEvent.type(writeComent, "Película muy buena");
+  const saveChanges = screen.getByText(/guardar película/i);
+  userEvent.click(saveChanges);
+  const openComments = screen.getByText("Star Wars");
+  userEvent.click(openComments);
+
+  const deleteButton = screen.getByText(/eliminar comentario/i);
+  userEvent.click(deleteButton);
+  userEvent.click(openComments);
+  userEvent.click(openComments);
+
+  expect(screen.queryByText(/película muy buena/i)).not.toBeInTheDocument();
+});
