@@ -88,6 +88,9 @@ export const ShowMovie: FC<{
       onUpdateMovie(movieUpdated);
     }
     setEditedReview([-1, -1]);
+    if (movieUpdated?.reviews.length === 0) {
+      setDisplayComments(-1);
+    }
   };
 
   const handleEditReview = (movieEdited: Movie, index: number) => {
