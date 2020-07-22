@@ -183,7 +183,7 @@ it("Elimina un comentario", () => {
   expect(screen.queryByText(/película muy buena/i)).not.toBeInTheDocument();
 });
 
-/*it("Edita un comentario", () => {
+it("Edita un comentario", () => {
   render(<App />);
 
   const title = screen.getByLabelText(/titulo/i);
@@ -195,7 +195,7 @@ it("Elimina un comentario", () => {
 
   const openComments = screen.getByText("Star Wars");
   userEvent.click(openComments);
-  const editCommentButton = screen.getByText(/edita comentario/i);
+  const editCommentButton = screen.getByText(/editar comentario/i);
   userEvent.click(editCommentButton);
 
   const editComment = screen.getByLabelText(/edita el comentario/i);
@@ -205,4 +205,3 @@ it("Elimina un comentario", () => {
 
   expect(screen.getByText(/Película muy buena!/i)).toBeInTheDocument();
 });
-*/

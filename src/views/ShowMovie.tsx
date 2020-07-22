@@ -8,9 +8,11 @@ export const ShowMovie: FC<{
   onUpdateMovie: (movieUpdated: Movie) => void;
   onDeleteMovie: (movieToDelete: number) => void;
 }> = ({ movieCollection, onUpdateMovie, onDeleteMovie }) => {
-  const [editedComment, setEditedComment] = useState("");
+  const [addedComment, setAddedComment] = useState("");
   const [editedTitle, setEditedTitle] = useState("");
+  const [readReview, setReadReview] = useState("");
   const [editedValuation, setEditedValuation] = useState(0);
+  const [editedReview, setEditedReview] = useState<number[]>([-1, -1]);
   const [editingComponent, setEditingComponent] = useState(-1);
   const [displayComments, setDisplayComments] = useState(-1);
 
@@ -19,9 +21,9 @@ export const ShowMovie: FC<{
     const movieUpdated = updatedMovieCollection.find(
       (movie) => movie.id === movieId
     );
-    if (!!editedComment) {
-      movieUpdated?.reviews.push(editedComment);
-      setEditedComment("");
+    if (!!addedComment) {
+      movieUpdated?.reviews.push(addedComment);
+      setAddedComment("");
     }
     if (!!movieUpdated) {
       movieUpdated.valuation = editedValuation;
@@ -58,9 +60,14 @@ export const ShowMovie: FC<{
     setEditedTitle(event.target.value);
   };
 
-  const handleEditComment = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReadReview = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setEditedComment(event.target.value);
+    setReadReview(event.target.value);
+  };
+
+  const handleAddComment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setAddedComment(event.target.value);
   };
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +89,23 @@ export const ShowMovie: FC<{
     }
     setDisplayComments(-1);
   };
+
+  const handleEditReview = (movieEdited: Movie, index: number) => {
+    editedReview[0] === -1
+      ? setEditedReview([movieEdited.id, index])
+      : setEditedReview([-1, -1]);
+
+    const updatedMovieCollection = movieCollection;
+    const movieUpdated = updatedMovieCollection.find(
+      (movie) => movie.id === movieEdited.id
+    );
+    if (!!movieUpdated) {
+      movieUpdated.reviews[index] = readReview;
+
+      onUpdateMovie(movieUpdated);
+    }
+  };
+
   return (
     <InnerWrapper>
       {movieCollection.length !== 0 ? (
@@ -103,7 +127,7 @@ export const ShowMovie: FC<{
                     <div>
                       <label htmlFor="comment">Escribe un comentario: </label>
                       <TypeTitle
-                        onChange={handleEditComment}
+                        onChange={handleAddComment}
                         type="text"
                         id="comment"
                       />
@@ -216,7 +240,35 @@ export const ShowMovie: FC<{
                     movie.reviews.map((comment, index) => {
                       return (
                         <div key={index}>
-                          - {comment}
+                          {editedReview[0] === movie.id &&
+                          editedReview[1] === index ? (
+                            <div>
+                              <label htmlFor="editarComentario">
+                                Edita el comentario:
+                              </label>
+                              <TypeTitle
+                                onChange={handleReadReview}
+                                type="text"
+                                id="editarComentario"
+                                placeholder={movie.reviews[index]}
+                              />
+                              <button
+                                onClick={() => handleEditReview(movie, index)}
+                              >
+                                Guardar comentario
+                              </button>
+                            </div>
+                          ) : (
+                            <div>
+                              <span> - {comment}</span>
+                              <button
+                                onClick={() => handleEditReview(movie, index)}
+                              >
+                                Editar comentario
+                              </button>
+                            </div>
+                          )}
+
                           <DeleteReview
                             onClick={() => handleDeleteReview(movie, index)}
                           >
