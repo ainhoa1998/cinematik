@@ -87,7 +87,7 @@ export const ShowMovie: FC<{
       );
       onUpdateMovie(movieUpdated);
     }
-    setDisplayComments(-1);
+    setEditedReview([-1, -1]);
   };
 
   const handleEditReview = (movieEdited: Movie, index: number) => {
