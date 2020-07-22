@@ -81,9 +81,7 @@ export const ShowMovie: FC<{
       onUpdateMovie(movieUpdated);
     }
     setDisplayComments(-1);
-    console.log("dentro");
   };
-  console.log("fuera");
   return (
     <InnerWrapper>
       {movieCollection.length !== 0 ? (

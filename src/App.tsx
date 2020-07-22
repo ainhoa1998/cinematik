@@ -36,9 +36,7 @@ const App: FC = () => {
       (movie) => movie.id === updatedMovie.id
     );
     updatedMovieCollection[positionUpdatedMovie] = updatedMovie;
-
     setMovieCollection(updatedMovieCollection);
-    console.log(updatedMovie);
   };
 
   const handleDelete = (movieToDelete: number) => {
