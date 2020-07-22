@@ -242,7 +242,7 @@ export const ShowMovie: FC<{
                         <div key={index}>
                           {editedReview[0] === movie.id &&
                           editedReview[1] === index ? (
-                            <div>
+                            <>
                               <label htmlFor="editarComentario">
                                 Edita el comentario:
                               </label>
@@ -252,28 +252,31 @@ export const ShowMovie: FC<{
                                 id="editarComentario"
                                 placeholder={movie.reviews[index]}
                               />
-                              <button
+                              <Button
+                                backgroundColor="orange"
                                 onClick={() => handleEditReview(movie, index)}
                               >
                                 Guardar comentario
-                              </button>
-                            </div>
+                              </Button>
+                            </>
                           ) : (
-                            <div>
+                            <>
                               <span> - {comment}</span>
-                              <button
+                              <Button
+                                backgroundColor="orange"
                                 onClick={() => handleEditReview(movie, index)}
                               >
                                 Editar comentario
-                              </button>
-                            </div>
+                              </Button>
+                            </>
                           )}
 
-                          <DeleteReview
+                          <Button
+                            backgroundColor="red"
                             onClick={() => handleDeleteReview(movie, index)}
                           >
                             Eliminar comentario
-                          </DeleteReview>
+                          </Button>
                         </div>
                       );
                     })}
@@ -326,12 +329,4 @@ const Pelicula = styled.div`
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
-`;
-
-const DeleteReview = styled.button`
-  color: red;
-  text-transform: lowercase;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
 `;
