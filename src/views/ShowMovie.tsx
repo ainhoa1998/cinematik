@@ -52,7 +52,9 @@ export const ShowMovie: FC<{
   const handleDisplay = (movie: Movie) => {
     displayComments === -1 && movie.reviews.length > 0
       ? setDisplayComments(movie.id)
-      : setDisplayComments(-1);
+      : displayComments === movie.id
+      ? setDisplayComments(-1)
+      : setDisplayComments(movie.id);
   };
 
   const handleEditTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,14 +98,16 @@ export const ShowMovie: FC<{
   const handleEditReview = (movieEdited: Movie, index: number) => {
     editedReview[0] === -1
       ? setEditedReview([movieEdited.id, index])
-      : setEditedReview([-1, -1]);
+      : editedReview[0] === movieEdited.id && editedReview[1] === index
+      ? setEditedReview([-1, -1])
+      : setEditedReview([movieEdited.id, index]);
 
     const updatedMovieCollection = movieCollection;
     const movieUpdated = updatedMovieCollection.find(
       (movie) => movie.id === movieEdited.id
     );
     if (!!movieUpdated) {
-      movieUpdated.reviews[index] = readReview;
+      readReview !== "" && (movieUpdated.reviews[index] = readReview);
 
       onUpdateMovie(movieUpdated);
     }
