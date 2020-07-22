@@ -81,8 +81,9 @@ export const ShowMovie: FC<{
       onUpdateMovie(movieUpdated);
     }
     setDisplayComments(-1);
+    console.log("dentro");
   };
-
+  console.log("fuera");
   return (
     <InnerWrapper>
       {movieCollection.length !== 0 ? (
@@ -181,7 +182,7 @@ export const ShowMovie: FC<{
                     )}
                     <span>
                       {movie.reviews.length} comentario
-                      {movie.reviews.length !== 1 ? <span>s</span> : null}
+                      {movie.reviews.length !== 1 && <span>s</span>}
                     </span>
                   </StyledMovie>
                 )}
@@ -210,25 +211,24 @@ export const ShowMovie: FC<{
                   </Button>
                 </div>
               </Pelicula>
-              {displayComments === movie.id ? (
+              {displayComments === movie.id && (
                 <Comments>
                   <span>Comentarios</span>
-                  {movie.reviews.length !== 0
-                    ? movie.reviews.map((comment, index) => {
-                        return (
-                          <div key={index}>
-                            - {comment}
-                            <DeleteReview
-                              onClick={() => handleDeleteReview(movie, index)}
-                            >
-                              Eliminar comentario
-                            </DeleteReview>
-                          </div>
-                        );
-                      })
-                    : null}
+                  {movie.reviews.length !== 0 &&
+                    movie.reviews.map((comment, index) => {
+                      return (
+                        <div key={index}>
+                          - {comment}
+                          <DeleteReview
+                            onClick={() => handleDeleteReview(movie, index)}
+                          >
+                            Eliminar comentario
+                          </DeleteReview>
+                        </div>
+                      );
+                    })}
                 </Comments>
-              ) : null}
+              )}
             </>
           );
         })

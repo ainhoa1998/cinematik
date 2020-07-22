@@ -38,6 +38,7 @@ const App: FC = () => {
     updatedMovieCollection[positionUpdatedMovie] = updatedMovie;
 
     setMovieCollection(updatedMovieCollection);
+    console.log(updatedMovie);
   };
 
   const handleDelete = (movieToDelete: number) => {

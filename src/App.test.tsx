@@ -182,3 +182,27 @@ it("Elimina un comentario", () => {
 
   expect(screen.queryByText(/película muy buena/i)).not.toBeInTheDocument();
 });
+
+/*it("Edita un comentario", () => {
+  render(<App />);
+
+  const title = screen.getByLabelText(/titulo/i);
+  userEvent.type(title, "Star Wars");
+  const review = screen.getByLabelText(/crítica/i);
+  userEvent.type(review, "Muy buena");
+  const saveButton = screen.getByText(/guardar/i);
+  userEvent.click(saveButton);
+
+  const openComments = screen.getByText("Star Wars");
+  userEvent.click(openComments);
+  const editCommentButton = screen.getByText(/edita comentario/i);
+  userEvent.click(editCommentButton);
+
+  const editComment = screen.getByLabelText(/edita el comentario/i);
+  userEvent.type(editComment, "Película muy buena!");
+  const saveChanges = screen.getByText(/guardar comentario/i);
+  userEvent.click(saveChanges);
+
+  expect(screen.getByText(/Película muy buena!/i)).toBeInTheDocument();
+});
+*/
