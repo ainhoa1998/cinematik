@@ -89,7 +89,7 @@ export const ShowMovie: FC<{
 
     if (!!movieUpdated) {
       movieUpdated.reviews = movieUpdated.reviews.filter(
-        (review) => review !== movieUpdated.reviews[index]
+        (review, indexReview) => indexReview !== index
       );
       onUpdateMovie(movieUpdated);
     }
