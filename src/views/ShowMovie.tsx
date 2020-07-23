@@ -12,7 +12,10 @@ export const ShowMovie: FC<{
   const [editedTitle, setEditedTitle] = useState("");
   const [readReview, setReadReview] = useState("");
   const [editedValuation, setEditedValuation] = useState(0);
-  const [editedReview, setEditedReview] = useState<number[]>([-1, -1]);
+  const [editedReview, setEditedReview] = useState({
+    movieId: -1,
+    reviewId: -1,
+  });
   const [editingComponent, setEditingComponent] = useState(-1);
   const [displayComments, setDisplayComments] = useState(-1);
 
@@ -89,18 +92,19 @@ export const ShowMovie: FC<{
       );
       onUpdateMovie(movieUpdated);
     }
-    setEditedReview([-1, -1]);
+    setEditedReview({ movieId: -1, reviewId: -1 });
     if (movieUpdated?.reviews.length === 0) {
       setDisplayComments(-1);
     }
   };
 
   const handleEditReview = (movieEdited: Movie, index: number) => {
-    editedReview[0] === -1
-      ? setEditedReview([movieEdited.id, index])
-      : editedReview[0] === movieEdited.id && editedReview[1] === index
-      ? setEditedReview([-1, -1])
-      : setEditedReview([movieEdited.id, index]);
+    editedReview.movieId === -1
+      ? setEditedReview({ movieId: movieEdited.id, reviewId: index })
+      : editedReview.movieId === movieEdited.id &&
+        editedReview.reviewId === index
+      ? setEditedReview({ movieId: -1, reviewId: -1 })
+      : setEditedReview({ movieId: movieEdited.id, reviewId: index });
 
     const updatedMovieCollection = movieCollection;
     const movieUpdated = updatedMovieCollection.find(
@@ -247,8 +251,8 @@ export const ShowMovie: FC<{
                     movie.reviews.map((comment, index) => {
                       return (
                         <div key={index}>
-                          {editedReview[0] === movie.id &&
-                          editedReview[1] === index ? (
+                          {editedReview.movieId === movie.id &&
+                          editedReview.reviewId === index ? (
                             <>
                               <label htmlFor="editarComentario">
                                 Edita el comentario:
