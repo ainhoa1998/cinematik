@@ -56,9 +56,9 @@ export const ShowMovie: FC<{
   const handleDisplay = (movie: Movie) => {
     displayComments === -1 && movie.reviews.length > 0
       ? setDisplayComments(movie.id)
-      : displayComments === movie.id
-      ? setDisplayComments(-1)
-      : setDisplayComments(movie.id);
+      : displayComments !== movie.id && movie.reviews.length > 0
+      ? setDisplayComments(movie.id)
+      : setDisplayComments(-1);
   };
 
   const handleEditTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
