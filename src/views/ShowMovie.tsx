@@ -42,6 +42,7 @@ export const ShowMovie: FC<{
     onDeleteMovie(selectedMovie);
 
     setDisplayComments(-1);
+    setEditingComponent(-1);
   };
 
   const handleEdit = (index: number) => {
