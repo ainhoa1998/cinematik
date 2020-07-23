@@ -2,6 +2,8 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { AddMovieForm } from "./views/AddMovieForm";
 import { ShowMovie } from "./views/ShowMovie";
+import fs from "fs";
+import path from "path";
 
 export interface Movie {
   title: string;
@@ -12,6 +14,18 @@ export interface Movie {
 
 const App: FC = () => {
   const [movieCollection, setMovieCollection] = useState<Movie[]>([]);
+
+  const saveMovie = (movieCollection: Movie[]) => {
+    fs.writeFileSync(
+      path.resolve(__dirname, "../resources/movies.txt"),
+      JSON.stringify(movieCollection)
+    );
+    const dev = fs.readFileSync(
+      path.resolve(__dirname, "../resources/movies.txt"),
+      "UTF-8"
+    );
+    console.log(dev);
+  };
 
   const handleSave = (
     movieTitle: string,
@@ -28,6 +42,7 @@ const App: FC = () => {
       valuation: valuation,
     };
     setMovieCollection([...movieCollection, newMovie]);
+    //saveMovie([...movieCollection, newMovie]);
   };
 
   const handleUpdate = (updatedMovie: Movie) => {
